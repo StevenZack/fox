@@ -1,3 +1,33 @@
 # todos
-- imageview
-- listview
+- text
+- clipboard
+- background
+- edit
+- permission
+- popupMenu
+- progress
+- radioButton
+- radioGroup
+- tablayout
+
+- service
+- snackbar
+- space
+- spinner
+- style
+- switch
+- bottomnav
+- toolbar
+- valueAnimator
+- viewpager
+- webview
+- imei
+- check
+- colors
+- event
+- fab
+- scroll
+- menu
+- motionEvent
+
+- fileChooser

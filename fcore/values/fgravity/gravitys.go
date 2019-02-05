@@ -1,0 +1,3 @@
+package fgravity
+
+var Left, Right, Top, Bottom, Center, CenterHorizontal, CenterVertical int = 3, 5, 48, 80, 17, 1, 16

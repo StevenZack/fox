@@ -10,13 +10,10 @@ type FFrameBox struct {
 }
 
 func New(a fcore.IActivity) *FFrameBox {
-	return NewV(a)
-}
-func NewV(a fcore.IActivity) *FFrameBox {
 	f := &FFrameBox{}
 	f.A = a
 	f.Vid = fcore.NewToken()
-	f.VType = "Box"
+	f.VType = "FrameBox"
 	fcore.ViewMap.Set(f.Vid, f)
 	f.A.NewObject(f.VType, f.Vid)
 	return f

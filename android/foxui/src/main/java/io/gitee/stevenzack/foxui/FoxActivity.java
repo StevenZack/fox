@@ -22,6 +22,7 @@ import io.gitee.stevenzack.foxui.FObject.FObject;
 import io.gitee.stevenzack.foxui.FObject.Widget.FBox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
+import io.gitee.stevenzack.foxui.FObject.Widget.FDialog;
 import io.gitee.stevenzack.foxui.FObject.Widget.FFrameLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FImage;
 import io.gitee.stevenzack.foxui.FObject.Widget.FListView;
@@ -87,7 +88,7 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
             case "ConstraintBox":
                 fObject = new FConstraintLayout(this);
                 break;
-            case "FrameLayout":
+            case "FrameBox":
                 fObject = new FFrameLayout(this);
                 break;
             case "VList":
@@ -99,6 +100,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 LinearLayoutManager lmh = new LinearLayoutManager(this);
                 lmh.setOrientation(LinearLayoutManager.HORIZONTAL);
                 fObject = new FListView(this,lmh);
+                break;
+            case "Dialog":
+                fObject = new FDialog(this);
                 break;
         }
         fObject.vid = vid;

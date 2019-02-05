@@ -52,6 +52,7 @@ public class Toolkit {
             Cursor cursor = null;
             try {
                 cursor = context.getContentResolver().query(uri, projection, null, null, null);
+                assert cursor != null;
                 int column_index = cursor.getColumnIndexOrThrow("_data");
                 if (cursor.moveToFirst()) {
                     return cursor.getString(column_index);

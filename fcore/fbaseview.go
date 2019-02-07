@@ -6,7 +6,6 @@ import (
 
 type FBaseView struct {
 	FBase
-	A                            IActivity
 	srcBackground, srcForeground string
 	FnOnClick                    func()
 	src                          string

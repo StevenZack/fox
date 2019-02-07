@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 
 import fox.Fox;
 import fox.IActivity;
@@ -35,10 +37,12 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FEdit;
 import io.gitee.stevenzack.foxui.FObject.Widget.FFrameLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FImage;
 import io.gitee.stevenzack.foxui.FObject.Widget.FListView;
+import io.gitee.stevenzack.foxui.FObject.Widget.FPopupMenu;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 
 public class FoxActivity extends AppCompatActivity implements IActivity {
     public Map<String, Drawable> drawableMap=new HashMap<>();
+    public Map<MenuItem, String> menuItemsOnClickMap = new HashMap<>();
     private String activityId="MainActivity";
     public DrawerLayout rootCtn;
     public Map<String, FObject> viewmap = new HashMap<>();
@@ -125,6 +129,17 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
             case "Edit":
                 fObject = new FEdit(this);
                 break;
+            case "PopupMenu":
+                try {
+                    String[] vids = vid.split(":");
+                    FPopupMenu popupMenu = new FPopupMenu(this, viewmap.get(vids[1]));
+                    popupMenu.vtype = vtype;
+                    popupMenu.vid = vids[0];
+                    viewmap.put(popupMenu.vid, popupMenu);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return "";
         }
         fObject.vid = vid;
         fObject.vtype = vtype;

@@ -9,6 +9,7 @@ type IActivity interface {
 }
 type FBase struct {
 	Vid, VType string
+	A                            IActivity
 }
 
 func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {

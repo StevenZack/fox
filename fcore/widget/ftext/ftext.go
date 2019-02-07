@@ -4,7 +4,6 @@ import "github.com/StevenZack/fox/fcore"
 
 type FText struct {
 	fcore.FBaseView
-	fnOnClick func()
 }
 
 func New(a fcore.IActivity) *FText {
@@ -16,8 +15,8 @@ func New(a fcore.IActivity) *FText {
 	f.A.NewObject(f.VType, f.Vid)
 	fnId := fcore.NewToken()
 	fcore.EventMap.Set(fnId, func(fcore.IActivity, string, string, string) string {
-		if f.fnOnClick != nil {
-			f.fnOnClick()
+		if f.FnOnClick != nil {
+			f.FnOnClick()
 		}
 		return ""
 	})

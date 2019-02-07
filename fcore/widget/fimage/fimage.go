@@ -6,8 +6,6 @@ import (
 
 type FImage struct {
 	fcore.FBaseView
-	fnOnClick func()
-	src       string
 }
 
 func New(a fcore.IActivity) *FImage {
@@ -19,8 +17,8 @@ func New(a fcore.IActivity) *FImage {
 	f.A.NewObject(f.VType, f.Vid)
 	fnId := fcore.NewToken()
 	fcore.EventMap.Set(fnId, func(fcore.IActivity, string, string, string) string {
-		if f.fnOnClick != nil {
-			f.fnOnClick()
+		if f.FnOnClick != nil {
+			f.FnOnClick()
 		}
 		return ""
 	})

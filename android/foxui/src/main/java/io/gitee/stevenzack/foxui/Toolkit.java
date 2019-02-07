@@ -46,6 +46,32 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class Toolkit {
+    public static void parseMenu(final FoxActivity uiController, Menu menu, JSONArray array) throws JSONException {
+        for (int i=0;i<array.length();i++) {
+            JSONObject object = array.getJSONObject(i);
+            if (!object.has("MySubMenu")||object.isNull("MySubMenu")) {
+                final MenuItem item = menu.add(0, ViewCompat.generateViewId(),i,object.getString("MyTitle"));
+                if (!object.isNull("MyOnClick") && !object.getString("MyOnClick").equals("")) {
+                    uiController.menuItemsOnClickMap.put(item, object.getString("MyOnClick"));
+                }
+                if (!object.isNull("MyIcon") && !object.getString("MyIcon").equals("")) {
+                    String mIcon=object.getString("MyIcon");
+                    file2Drawable(uiController, mIcon, new OnDrawableReadyListener() {
+                        @Override
+                        public void onDrawableReady(Drawable drawable) {
+                            item.setIcon(drawable);
+                        }
+                    });
+                }
+                if (!object.isNull("MyShowAsAction") && !object.getString("MyShowAsAction").equals("")) {
+                    item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+                }
+                continue;
+            }
+            JSONArray subMenu=object.getJSONArray("MySubMenu");
+            parseMenu(uiController,menu.addSubMenu(object.getString("MyTitle")),subMenu);
+        }
+    }
     public static String getPath(Context context, Uri uri) throws URISyntaxException {
         if ("content".equalsIgnoreCase(uri.getScheme())) {
             String[] projection = {"_data"};

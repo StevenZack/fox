@@ -447,3 +447,10 @@ func (f *FBaseView) Vertical() *FBaseView {
 	f.A.SetAttr(f.Vid, "Orientation", "VERTICAL", "")
 	return f
 }
+func (f *FBaseView) Selected(b bool) *FBaseView {
+	f.A.SetAttr(f.Vid,"Selected",SPrintf(b),"")
+	return f
+}
+func (f *FBaseView) IsSelected() bool {
+	return f.A.GetAttr(f.Vid,"IsSelected")=="true"
+}

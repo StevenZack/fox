@@ -1,6 +1,7 @@
 package io.gitee.stevenzack.foxui.FObject.Widget;
 
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class FRadioGroup extends FObject  {
                     return "HORIZONTAL";
                 else
                     return "VERTICAL";
-            case "CheckedRadioButtonId":
+            case "Selected":
                 return idMap.get(v.getCheckedRadioButtonId());
         }
         return null;
@@ -57,28 +58,43 @@ public class FRadioGroup extends FObject  {
                 }
                 break;
             case "AddView":
-                final String childVid = value;
-                FObject f = parentController.viewmap.get(childVid);
-                RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(f.size[0], f.size[1]);
-                lp.gravity = f.layoutGravity;
-                lp.weight = f.layoutWeight;
-                lp.leftMargin = f.margin[0];
-                lp.topMargin = f.margin[1];
-                lp.rightMargin = f.margin[2];
-                lp.bottomMargin = f.margin[3];
-                v.addView(f.view,lp);
-                idMap.put(f.view.getId(),f.vid);
+                addView(value);
                 break;
-            case "OnCheckedChange":
+            case "Append":
+                String[] strs=value.split(",");
+                for (int i = 0; i < strs.length; i++) {
+                    addView(strs[i]);
+                }
+                break;
+            case "OnChange":
                 v.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         String checkedVid = idMap.get(checkedId);
+                        Log.d(TAG, "onCheckedChanged: ");
                         Fox.triggerFunction(parentController, value, checkedVid,"","");
                     }
                 });
                 break;
         }
         return "";
+    }
+
+    private void addView(String value) {
+        final String childVid = value;
+        FObject f = parentController.viewmap.get(childVid);
+        if (f == null) {
+            Log.d(TAG, "addView: FRadioGroup Append null");
+            return;
+        }
+        RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(f.size[0], f.size[1]);
+        lp.gravity = f.layoutGravity;
+        lp.weight = f.layoutWeight;
+        lp.leftMargin = f.margin[0];
+        lp.topMargin = f.margin[1];
+        lp.rightMargin = f.margin[2];
+        lp.bottomMargin = f.margin[3];
+        v.addView(f.view,lp);
+        idMap.put(f.view.getId(),f.vid);
     }
 }

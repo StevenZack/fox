@@ -27,10 +27,10 @@ public class FRadio extends FObject {
         }
         switch (attr){
             // ------------------------------------------
+            case "IsSelected":
+                return String.valueOf(v.isSelected());
             case "Text":
                 return v.getText().toString();
-            case "Enabled":
-                return String.valueOf(v.isEnabled());
         }
         return "";
     }
@@ -41,24 +41,12 @@ public class FRadio extends FObject {
         if (str != null) {
             return str;
         }
-        switch (str) {
+        switch (attr) {
             case "Text":
                 v.setText(value);
                 break;
-            case "TextColor":
-                try {
-                    v.setTextColor(Color.parseColor(value));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "TextSize":
-                try {
-                    v.setTextSize(dp2pixel(parentController,Float.valueOf(value)));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return "";
-                }
+            case "Selected":
+                v.setSelected(value.equals("true"));
                 break;
         }
         return "";

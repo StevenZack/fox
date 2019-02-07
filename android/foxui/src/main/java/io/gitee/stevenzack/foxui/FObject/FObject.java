@@ -44,7 +44,6 @@ public abstract class FObject {
         }
     }
     public String setAttr(String attr, final String value, String value2){
-        Log.d(TAG, "setAttr: "+attr+","+value);
         switch (attr) {
             case "Enabled":
                 view.setEnabled(value.equals("true"));

@@ -16,7 +16,3 @@ func New(a fcore.IActivity) *FRadio {
 	f.A.NewObject(f.VType, f.Vid)
 	return f
 }
-func (f *FRadio) Assign(i **FRadio) *FRadio {
-	(*i) = f
-	return f
-}

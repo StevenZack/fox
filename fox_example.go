@@ -8,6 +8,7 @@ import (
 	"github.com/StevenZack/fox/fcore/widget/fedit"
 	"github.com/StevenZack/fox/fcore/widget/fmenu"
 	"github.com/StevenZack/fox/fcore/widget/fpopupMenu"
+	"github.com/StevenZack/fox/fcore/widget/fprogress"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
 )
 
@@ -37,6 +38,7 @@ func Main(a IActivity) {
 		fedit.New(a).Assign(&e).Size(-2,-1).Text("a").Hint("input").OnChange(func() {
 			t1.Text(e.GetText())
 		}),
+		fprogress.New(a),
 		fbutton.New(a).Text("text").OnClick(func() {
 			fcore.ShowToast(a,"clicked")
 			if !fcore.CheckSelfPermission(a,fpermission.WRITE_EXTERNAL_STORAGE){

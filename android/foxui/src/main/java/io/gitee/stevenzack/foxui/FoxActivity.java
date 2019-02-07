@@ -38,6 +38,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FFrameLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FImage;
 import io.gitee.stevenzack.foxui.FObject.Widget.FListView;
 import io.gitee.stevenzack.foxui.FObject.Widget.FPopupMenu;
+import io.gitee.stevenzack.foxui.FObject.Widget.FProgress;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 
 public class FoxActivity extends AppCompatActivity implements IActivity {
@@ -140,6 +141,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                     e.printStackTrace();
                 }
                 return "";
+            case "Progress":
+                fObject = new FProgress(this);
+                break;
         }
         fObject.vid = vid;
         fObject.vtype = vtype;

@@ -24,6 +24,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FBox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FDialog;
+import io.gitee.stevenzack.foxui.FObject.Widget.FEdit;
 import io.gitee.stevenzack.foxui.FObject.Widget.FFrameLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FImage;
 import io.gitee.stevenzack.foxui.FObject.Widget.FListView;
@@ -111,6 +112,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "Clipboard":
                 fObject = new FClipboard(this);
+                break;
+            case "Edit":
+                fObject = new FEdit(this);
                 break;
         }
         fObject.vid = vid;

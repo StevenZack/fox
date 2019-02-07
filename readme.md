@@ -1,6 +1,4 @@
 # todos
-- clipboard
-- background
 - edit
 - permission
 - popupMenu

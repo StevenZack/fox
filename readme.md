@@ -1,5 +1,4 @@
 # todos
-- text
 - clipboard
 - background
 - edit

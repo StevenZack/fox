@@ -19,6 +19,7 @@ import java.util.Map;
 import fox.Fox;
 import fox.IActivity;
 import io.gitee.stevenzack.foxui.FObject.FObject;
+import io.gitee.stevenzack.foxui.FObject.Service.FClipboard;
 import io.gitee.stevenzack.foxui.FObject.Widget.FBox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
@@ -107,6 +108,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "Dialog":
                 fObject = new FDialog(this);
+                break;
+            case "Clipboard":
+                fObject = new FClipboard(this);
                 break;
         }
         fObject.vid = vid;

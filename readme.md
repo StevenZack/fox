@@ -1,6 +1,6 @@
 # todos
 [x] popupMenu
-- progress
+[x] progress
 - radioButton
 - radioGroup
 - tablayout
@@ -26,3 +26,5 @@
 - motionEvent
 
 - fileChooser
+
+- getFromViewHolder

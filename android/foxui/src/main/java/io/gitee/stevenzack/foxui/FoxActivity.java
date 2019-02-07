@@ -39,6 +39,8 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FImage;
 import io.gitee.stevenzack.foxui.FObject.Widget.FListView;
 import io.gitee.stevenzack.foxui.FObject.Widget.FPopupMenu;
 import io.gitee.stevenzack.foxui.FObject.Widget.FProgress;
+import io.gitee.stevenzack.foxui.FObject.Widget.FRadio;
+import io.gitee.stevenzack.foxui.FObject.Widget.FRadioGroup;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 
 public class FoxActivity extends AppCompatActivity implements IActivity {
@@ -143,6 +145,12 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 return "";
             case "Progress":
                 fObject = new FProgress(this);
+                break;
+            case "Radio":
+                fObject = new FRadio(this);
+                break;
+            case "RadioGroup":
+                fObject = new FRadioGroup(this);
                 break;
         }
         fObject.vid = vid;

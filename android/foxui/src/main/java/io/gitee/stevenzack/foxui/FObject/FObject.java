@@ -36,10 +36,19 @@ public abstract class FObject {
     }
 
     public String getAttr(String attr){
-        return null;
+        switch (attr) {
+            case "Enabled":
+                return String.valueOf(view.isEnabled());
+            default:
+                return null;
+        }
     }
     public String setAttr(String attr, final String value, String value2){
+        Log.d(TAG, "setAttr: "+attr+","+value);
         switch (attr) {
+            case "Enabled":
+                view.setEnabled(value.equals("true"));
+                break;
             case "BackgroundColor":
                 setBackgroundColor(value);
                 break;

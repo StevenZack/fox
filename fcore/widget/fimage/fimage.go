@@ -25,7 +25,3 @@ func New(a fcore.IActivity) *FImage {
 	f.A.SetAttr(f.Vid, "OnClick", fnId, "")
 	return f
 }
-func (f *FImage) Assign(i **FImage) *FImage {
-	(*i) = f
-	return f
-}

@@ -52,7 +52,25 @@ public class FConstraintLayout extends FObject {
                     v.addView(parentController.viewmap.get(vids[i]).view,lp);
                 }
                 break;
+            case "AddView":
+                addView(value, value2);
+                break;
+            case "AddViewAt":
+                addView(value,value2);
         }
         return "";
+    }
+
+    private void addView(String value, String value2) {
+        FObject f= parentController.viewmap.get(value);
+        ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(f.size[0], f.size[1]);
+        for (Map.Entry<String, ConstraintInterface> entry : f.afterConstraintFuncs.entrySet()) {
+            entry.getValue().addConstraint(this,lp);
+        }
+        lp.leftMargin = f.margin[0];
+        lp.topMargin = f.margin[1];
+        lp.rightMargin = f.margin[2];
+        lp.bottomMargin = f.margin[3];
+        v.addView(parentController.viewmap.get(value).view,lp);
     }
 }

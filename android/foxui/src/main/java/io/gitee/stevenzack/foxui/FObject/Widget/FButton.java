@@ -1,6 +1,7 @@
 package io.gitee.stevenzack.foxui.FObject.Widget;
 
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -44,7 +45,8 @@ public class FButton extends FObject {
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Fox.triggerFunction(null, value, "", "","");
+                        Log.d(TAG, "onClick: clicked");
+                        Fox.triggerFunction(parentController, value, "", "","");
                     }
                 });
                 break;

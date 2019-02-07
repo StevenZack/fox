@@ -2,6 +2,7 @@ package fcore
 
 import (
 	"fmt"
+	"strings"
 )
 
 type FBaseView struct {
@@ -9,11 +10,11 @@ type FBaseView struct {
 	srcBackground, srcForeground string
 	FnOnClick                    func()
 	src                          string
+	showAfter                    bool
 }
 type IBaseView interface {
 	GetBaseView() *FBaseView
 }
-
 func (f *FBaseView) GetBaseView() *FBaseView {
 	return f
 }
@@ -244,6 +245,46 @@ func (v *FBaseView) Clickable(b bool) *FBaseView {
 //constraint
 var parent = "_Parent_"
 
+func (v *FBaseView) Top2TopOfParent() *FBaseView {
+	v.A.SetAttr(v.Vid, "Top2TopOf", parent, "")
+	return v
+}
+
+func (v *FBaseView) Top2BottomOfParent() *FBaseView {
+	v.A.SetAttr(v.Vid, "Top2BottomOf", parent, "")
+	return v
+}
+
+func (v *FBaseView) Bottom2TopOfParent() *FBaseView {
+	v.A.SetAttr(v.Vid, "Bottom2TopOf", parent, "")
+	return v
+}
+
+func (v *FBaseView) Bottom2BottomOfParent(i IBaseView) *FBaseView {
+	v.A.SetAttr(v.Vid, "Bottom2BottomOf", parent, "")
+	return v
+}
+
+func (v *FBaseView) Left2LeftOfParent() *FBaseView {
+	v.A.SetAttr(v.Vid, "Left2LeftOf", parent, "")
+	return v
+}
+
+func (v *FBaseView) Right2RightOfParent() *FBaseView {
+	v.A.SetAttr(v.Vid, "Right2RightOf", parent, "")
+	return v
+}
+
+func (v *FBaseView) Left2RightOfParent() *FBaseView {
+	v.A.SetAttr(v.Vid, "Left2RightOf", parent, "")
+	return v
+}
+
+func (v *FBaseView) Right2LeftOfParent() *FBaseView {
+	v.A.SetAttr(v.Vid, "Right2LeftOf", parent, "")
+	return v
+}
+
 func (v *FBaseView) Top2TopOf(i IBaseView) *FBaseView {
 	v.A.SetAttr(v.Vid, "Top2TopOf", i.GetBaseView().Vid, "")
 	return v
@@ -304,7 +345,10 @@ func (f *FBaseView) OnClick(fn func()) *FBaseView {
 	f.FnOnClick = fn
 	return f
 }
-
+func (f *FBaseView) Assign(i **FBaseView) *FBaseView {
+	(*i)=f
+	return f
+}
 func (v *FBaseView) Text(s string) *FBaseView {
 	v.A.SetAttr(v.Vid, "Text", s,"")
 	return v
@@ -355,5 +399,51 @@ func (f *FBaseView) OnChange(fn func()) *FBaseView {
 		return ""
 	})
 	f.A.SetAttr(f.Vid,"OnChange",f.Vid+":onchange", "")
+	return f
+}
+func (f *FBaseView) Enabled(b bool)*FBaseView  {
+	f.A.SetAttr(f.Vid,"Enabled",SPrintf(b), "")
+	return f
+}
+func (f *FBaseView) IsEnabled() bool {
+	return f.A.GetAttr(f.Vid,"Enabled")=="true"
+}
+
+func (f *FBaseView) Append(is ...IBaseView) *FBaseView {
+	var vids []string
+	for _, i := range is {
+		if i == nil {
+			continue
+		}
+		vids = append(vids, i.GetBaseView().Vid)
+	}
+	f.A.SetAttr(f.Vid, "Append", strings.Join(vids, ","), "")
+	if f.showAfter {
+		f.Show()
+	}
+	return f
+}
+func (f *FBaseView) AddView(i IBaseView) *FBaseView {
+	f.A.SetAttr(f.Vid,"AddView",i.GetBaseView().Vid, "")
+	return f
+}
+func (f *FBaseView) AddViewAt(i IBaseView, pos int) *FBaseView {
+	f.A.SetAttr(f.Vid,"AddViewAt",i.GetBaseView().Vid,SPrintf(pos))
+	return f
+}
+func (f *FBaseView) DeferShow() *FBaseView {
+	f.showAfter=true
+	return f
+}
+
+func (f *FBaseView) Horizontal() *FBaseView {
+	f.A.SetAttr(f.Vid, "Orientation", "HORIZONTAL", "")
+	return f
+}
+func (f *FBaseView) IsVertical() bool {
+	return f.A.GetAttr(f.Vid,"IsVertical")=="true"
+}
+func (f *FBaseView) Vertical() *FBaseView {
+	f.A.SetAttr(f.Vid, "Orientation", "VERTICAL", "")
 	return f
 }

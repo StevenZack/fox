@@ -23,7 +23,3 @@ func New(a fcore.IActivity) *FProgress {
 	f.A.SetAttr(f.Vid, "OnClick", fnId+":onclick", "")
 	return f
 }
-func (f *FProgress) Assign(i **FProgress) *FProgress {
-	(*i) = f
-	return f
-}

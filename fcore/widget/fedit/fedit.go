@@ -15,7 +15,3 @@ func New(a fcore.IActivity) *FEdit {
 	f.A.NewObject(f.VType, f.Vid)
 	return f
 }
-func (f *FEdit) Assign(i **FEdit) *FEdit {
-	(*i)=f
-	return f
-}

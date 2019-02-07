@@ -2,6 +2,7 @@ package io.gitee.stevenzack.foxui.FObject.Widget;
 
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import io.gitee.stevenzack.foxui.FObject.FObject;
@@ -41,6 +42,25 @@ public class FBox extends FObject {
                 FObject fObject = parentController.viewmap.get(value);
                 if (fObject != null) {
                     v.addView(fObject.view,parseLP(fObject));
+                }
+                break;
+            case "AddViewAt":
+                FObject fObject1 = parentController.viewmap.get(value);
+                if (fObject1 != null) {
+                    v.addView(fObject1.view,Integer.parseInt(value2),parseLP(fObject1));
+                }else{
+                    Log.d(TAG, "setAttr: fobject is null");
+                }
+                break;
+            case "Append":
+                String[] vids = value.split(",");
+                for (int i = 0; i < vids.length; i++) {
+                    FObject object=parentController.viewmap.get(vids[i]);
+                    if (object != null) {
+                        v.addView(object.view,parseLP(object));
+                    }else{
+                        Log.d(TAG, "setAttr: object is null");
+                    }
                 }
                 break;
             case "Orientation":

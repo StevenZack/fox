@@ -45,14 +45,18 @@ public class FFrameLayout extends FObject {
                 v.addView(f.view,parseLP(f));
                 break;
             case "AddViewAt":
-                try {
-                    JSONArray array = (JSONArray) (new JSONTokener(value).nextValue());
-                    int pos = Integer.parseInt(array.getString(0));
-                    String vid = array.getString(1);
-                    FObject f1 = parentController.viewmap.get(vid);
-                    v.addView(f1.view,pos,parseLP(f1));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                FObject fObject1 = parentController.viewmap.get(value);
+                if (fObject1 != null) {
+                    v.addView(fObject1.view,Integer.parseInt(value2),parseLP(fObject1));
+                }
+                break;
+            case "Append":
+                String[] vs=value.split(",");
+                for (int i = 0; i < vs.length; i++) {
+                    FObject fObject = parentController.viewmap.get(vs[i]);
+                    if (fObject != null) {
+                        v.addView(fObject.view,parseLP(fObject));
+                    }
                 }
                 break;
             case "OnClick":

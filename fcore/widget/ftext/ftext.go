@@ -23,7 +23,3 @@ func New(a fcore.IActivity) *FText {
 	f.A.SetAttr(f.Vid, "OnClick", fnId, "")
 	return f
 }
-func (f *FText) Assign(i **FText) *FText {
-	(*i) = f
-	return f
-}

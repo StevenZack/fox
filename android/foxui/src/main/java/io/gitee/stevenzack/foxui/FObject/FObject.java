@@ -1,5 +1,8 @@
 package io.gitee.stevenzack.foxui.FObject;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewCompat;
 import android.util.Log;
@@ -14,6 +17,7 @@ import java.util.Map;
 
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
 import io.gitee.stevenzack.foxui.FoxActivity;
+import io.gitee.stevenzack.foxui.Toolkit;
 
 import static io.gitee.stevenzack.foxui.Toolkit.dp2pixel;
 
@@ -36,6 +40,15 @@ public abstract class FObject {
     }
     public String setAttr(String attr, final String value, String value2){
         switch (attr) {
+            case "BackgroundColor":
+                setBackgroundColor(value);
+                break;
+            case "Background":
+                setBackground(value);
+                break;
+            case "Foreground":
+                setForeground(value);
+                break;
             case "Size":
                 parseSize(value,value2);
                 break;
@@ -217,7 +230,64 @@ public abstract class FObject {
         }
         return "";
     }
+    void setBackgroundColor(String value) {
+        if (value==null)
+            return;
+        if (value.equals("#0000000")) {
+            view.setBackgroundColor(Color.TRANSPARENT);
+            return;
+        }
+        try {
+            view.setBackgroundColor(Color.parseColor(value));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    void setBackground(String value) {
+        if (value==null)
+            return;
+        if (value.startsWith("#")) {
+            setBackgroundColor(value);
+            return;
+        }
+        Toolkit.file2Drawable(parentController, value, new Toolkit.OnDrawableReadyListener() {
+            @Override
+            public void onDrawableReady(Drawable draw) {
+                if (draw == null) {
+                    return;
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    view.setBackground(draw);
+                }else {
+                    view.setBackgroundDrawable(draw);
+                }
+            }
+        });
+        if (value.equals("RippleEffect")) {
+            view.setClickable(true);
+        }
+    }
 
+    void setForeground(String value) {
+        if (value == null) {
+            return;
+        }
+        Toolkit.file2Drawable(parentController, value, new Toolkit.OnDrawableReadyListener() {
+            @Override
+            public void onDrawableReady(Drawable draw) {
+                if (draw == null) {
+                    return;
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    view.setForeground(draw);
+                }
+            }
+        });
+
+        if (value.equals("RippleEffect")) {
+            view.setClickable(true);
+        }
+    }
     protected void parseSize(String value1,String value2) {
         long width=Integer.parseInt(value1), height=Integer.parseInt(value2);
         ViewGroup.LayoutParams p = view.getLayoutParams();
@@ -366,8 +436,9 @@ public abstract class FObject {
     }
     void setElevation(String value) {
         try {
-            float f = dp2pixel(parentController, Float.parseFloat(value));
+            float f = Float.parseFloat(value);
             ViewCompat.setElevation(view,f);
+            Log.d(TAG, "setElevation: "+value);
         } catch (Exception e) {
             e.printStackTrace();
         }

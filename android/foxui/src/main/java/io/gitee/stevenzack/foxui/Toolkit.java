@@ -325,7 +325,9 @@ public class Toolkit {
         } else if (value.startsWith("drawable://")) {
 //            listener.onDrawableReady(ContextCompat.getDrawable(parentUIController.activity, src));
         } else if (value.equals("RippleEffect")) {
+            Log.d(TAG, "file2Drawable: set rippleEffect1");
             listener.onDrawableReady( parentUIController.getResources().getDrawable(R.drawable.ripple));
+            Log.d(TAG, "file2Drawable: set rippleEffect");
         } else if (value.startsWith("fdrawable://")) {
             listener.onDrawableReady( parentUIController.drawableMap.get(value));
         }

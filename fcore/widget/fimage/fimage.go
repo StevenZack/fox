@@ -48,7 +48,7 @@ func (f *FImage) Src(s string) *FImage {
 			fcore.RunOnUIThreadWithFnId(f.A, func() {
 				f.A.SetAttr(f.Vid, "Src", "file://"+path, "")
 				f.src = s
-			}, f.Vid)
+			}, f.Vid+":src")
 		})
 		return f
 	}

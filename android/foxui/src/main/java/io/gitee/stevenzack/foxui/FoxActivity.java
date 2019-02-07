@@ -26,6 +26,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FDialog;
 import io.gitee.stevenzack.foxui.FObject.Widget.FFrameLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FImage;
 import io.gitee.stevenzack.foxui.FObject.Widget.FListView;
+import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 
 public class FoxActivity extends AppCompatActivity implements IActivity {
     public Map<String, Drawable> drawableMap=new HashMap<>();
@@ -81,6 +82,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "Button":
                 fObject=new FButton(this);
+                break;
+            case "Text":
+                fObject = new FText(this);
                 break;
             case "Image":
                 fObject = new FImage(this);

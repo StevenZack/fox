@@ -7,6 +7,7 @@ import (
 type FBaseView struct {
 	FBase
 	A IActivity
+	srcBackground,srcForeground string
 }
 type IBaseView interface {
 	GetBaseView() *FBaseView
@@ -20,6 +21,42 @@ func (f *FBaseView) GetText() string {
 }
 func (f *FBaseView) Show() *FBaseView {
 	f.A.Show(f.Vid)
+	return f
+}
+func (f *FBaseView) Background(fbg string) *FBaseView {
+	if f.srcBackground == fbg {
+		return f
+	}
+	if StartsWith(fbg, "http") {
+		go CacheNetFile(fbg,"/data/data/"+GetPackageName(f.A)+"/cacheDir/", func(s string) {
+			RunOnUIThreadWithFnId(f.A, func() {
+				f.A.SetAttr(f.Vid,"Background","file://"+s,"")
+				f.srcBackground=fbg
+			},f.Vid+":background")
+		})
+		return f
+	}
+	f.A.SetAttr(f.Vid,"Background",fbg,"")
+	return f
+}
+func (f *FBaseView) Foreground(s string) *FBaseView {
+	if f.srcForeground==s {
+		return f
+	}
+	if StartsWith(s, "http") {
+		go CacheNetFile(s,"/data/data/"+GetPackageName(f.A)+"/cacheDir/", func(path string) {
+			RunOnUIThreadWithFnId(f.A, func() {
+				f.A.SetAttr(f.Vid,"Foreground","file://"+path,"")
+				f.srcForeground=s
+			},f.Vid+":foreground")
+		})
+		return f
+	}
+	f.A.SetAttr(f.Vid,"Foreground",s,"")
+	return f
+}
+func (f *FBaseView) BackgroundColor(fcolor string) *FBaseView {
+	f.A.SetAttr(f.Vid,"BackgroundColor",fcolor,"")
 	return f
 }
 func (f *FBaseView) Size(w, h int) *FBaseView {

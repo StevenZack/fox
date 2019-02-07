@@ -2,10 +2,13 @@ package io.gitee.stevenzack.foxui.FObject.Widget;
 
 import android.graphics.Color;
 import android.support.v4.view.ViewCompat;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.widget.EditText;
 
+import fox.Fox;
 import io.gitee.stevenzack.foxui.FObject.FObject;
 import io.gitee.stevenzack.foxui.FoxActivity;
 
@@ -84,6 +87,24 @@ public class FEdit extends FObject {
                 break;
             case "MaxLength":
                 v.setFilters(new InputFilter[] {new InputFilter.LengthFilter(Integer.parseInt(value))});
+                break;
+            case "OnChange":
+                v.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        Fox.triggerFunction(parentController, value, "", "", "");
+                    }
+                });
                 break;
         }
         return "";

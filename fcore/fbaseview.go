@@ -6,8 +6,10 @@ import (
 
 type FBaseView struct {
 	FBase
-	A IActivity
-	srcBackground,srcForeground string
+	A                            IActivity
+	srcBackground, srcForeground string
+	fnOnClick                    func()
+	src                          string
 }
 type IBaseView interface {
 	GetBaseView() *FBaseView
@@ -39,6 +41,25 @@ func (f *FBaseView) Background(fbg string) *FBaseView {
 	f.A.SetAttr(f.Vid,"Background",fbg,"")
 	return f
 }
+
+func (f *FBaseView) Src(s string) *FBaseView {
+	if s == f.src {
+		return f
+	}
+	if StartsWith(s, "http") {
+		go CacheNetFile(s, "/data/data/"+GetPackageName(f.A)+"/cacheDir/", func(path string) {
+			RunOnUIThreadWithFnId(f.A, func() {
+				f.A.SetAttr(f.Vid, "Src", "file://"+path, "")
+				f.src = s
+			}, f.Vid+":src")
+		})
+		return f
+	}
+	f.A.SetAttr(f.Vid, "Src", s, "")
+	f.src = s
+	return f
+}
+
 func (f *FBaseView) Foreground(s string) *FBaseView {
 	if f.srcForeground==s {
 		return f
@@ -278,4 +299,62 @@ func (v *FBaseView) WidthPercent(num float64) *FBaseView {
 func (v *FBaseView) HeightPercent(num float64) *FBaseView {
 	v.A.SetAttr(v.Vid, "HeightPercent", SPrintf(num), "")
 	return v
+}
+
+func (f *FBaseView) OnClick(fn func()) *FBaseView {
+	f.fnOnClick = fn
+	return f
+}
+
+func (v *FBaseView) Text(s string) *FBaseView {
+	v.A.SetAttr(v.Vid, "Text", s,"")
+	return v
+}
+func (v *FBaseView) TextColor(s string) *FBaseView {
+	v.A.SetAttr(v.Vid, "TextColor", s,"")
+	return v
+}
+func (v *FBaseView) TextSize(dpsize int) *FBaseView {
+	v.A.SetAttr(v.Vid, "TextSize", SPrintf(dpsize),"")
+	return v
+}
+func (v *FBaseView) InputTypeSingleLineText() *FBaseView {
+	v.A.SetAttr(v.Vid, "InputType", "Text","")
+	return v
+}
+func (v *FBaseView) InputTypeNumber() *FBaseView {
+	v.A.SetAttr(v.Vid, "InputType", "Number","")
+	return v
+}
+func (v *FBaseView) InputTypePassword() *FBaseView {
+	v.A.SetAttr(v.Vid, "InputType", "Password","")
+	return v
+}
+func (v *FBaseView) InputTypeEnglish() *FBaseView {
+	v.A.SetAttr(v.Vid, "InputType", "English","")
+	return v
+}
+func (v *FBaseView) MaxLines(i int) *FBaseView {
+	v.A.SetAttr(v.Vid, "MaxLines", SPrintf(i),"")
+	return v
+}
+func (v *FBaseView) MaxEms(i int) *FBaseView {
+	v.A.SetAttr(v.Vid, "MaxEms", SPrintf(i),"")
+	return v
+}
+func (v *FBaseView) Hint(s string) *FBaseView {
+	v.A.SetAttr(v.Vid, "Hint", s,"")
+	return v
+}
+func (v *FBaseView) MaxLength(i int) *FBaseView {
+	v.A.SetAttr(v.Vid, "MaxLength", SPrintf(i),"")
+	return v
+}
+func (f *FBaseView) OnChange(fn func()) *FBaseView {
+	EventMap.Set(f.Vid+":onchange", func(activity IActivity, s string, s2 string, s3 string) string {
+		fn()
+		return ""
+	})
+	f.A.SetAttr(f.Vid,"OnChange",f.Vid+":onchange", "")
+	return f
 }

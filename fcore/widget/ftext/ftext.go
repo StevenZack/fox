@@ -28,20 +28,3 @@ func (f *FText) Assign(i **FText) *FText {
 	(*i) = f
 	return f
 }
-func (f *FText) OnClick(fn func()) *FText {
-	f.fnOnClick = fn
-	return f
-}
-
-func (f *FText) Text(s string) *FText {
-	f.A.SetAttr(f.Vid, "Text", s, "")
-	return f
-}
-func (f *FText) TextColor(fcolor string) *FText {
-	f.A.SetAttr(f.Vid,"TextColor",fcolor,"")
-	return f
-}
-func (f *FText) TextSize(dp int) *FText {
-	f.A.SetAttr(f.Vid,"TextSize",fcore.SPrintf(dp),"")
-	return  f
-}

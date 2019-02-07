@@ -9,6 +9,7 @@ type FBox struct {
 	showAfter bool
 }
 
+
 func New(a fcore.IActivity) *FBox {
 	return NewV(a)
 }

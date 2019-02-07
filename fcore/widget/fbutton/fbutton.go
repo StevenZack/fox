@@ -30,12 +30,3 @@ func (f *FButton) Assign(i **FButton) *FButton {
 	(*i) = f
 	return f
 }
-func (f *FButton) OnClick(fn func()) *FButton {
-	f.fnOnClick = fn
-	return f
-}
-
-func (f *FButton) Text(s string) *FButton {
-	f.A.SetAttr(f.Vid, "Text", s, "")
-	return f
-}

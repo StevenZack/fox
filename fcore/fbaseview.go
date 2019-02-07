@@ -8,7 +8,7 @@ type FBaseView struct {
 	FBase
 	A                            IActivity
 	srcBackground, srcForeground string
-	fnOnClick                    func()
+	FnOnClick                    func()
 	src                          string
 }
 type IBaseView interface {
@@ -302,7 +302,7 @@ func (v *FBaseView) HeightPercent(num float64) *FBaseView {
 }
 
 func (f *FBaseView) OnClick(fn func()) *FBaseView {
-	f.fnOnClick = fn
+	f.FnOnClick = fn
 	return f
 }
 

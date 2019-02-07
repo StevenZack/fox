@@ -1,6 +1,4 @@
 # todos
-- edit
-- permission
 - popupMenu
 - progress
 - radioButton

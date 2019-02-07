@@ -2,7 +2,9 @@ package fox
 
 import (
 	"github.com/StevenZack/fox/fcore"
+	"github.com/StevenZack/fox/fcore/values/fpermission"
 	"github.com/StevenZack/fox/fcore/widget/fbox"
+	"github.com/StevenZack/fox/fcore/widget/fbutton"
 	"github.com/StevenZack/fox/fcore/widget/fedit"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
 )
@@ -22,6 +24,14 @@ func Main(a IActivity) {
 		ftext.New(a).Assign(&t1).Text("asd"),
 		fedit.New(a).Assign(&e).Size(-2,-1).Text("a").Hint("input").OnChange(func() {
 			t1.Text(e.GetText())
+		}),
+		fbutton.New(a).Text("text").OnClick(func() {
+			fcore.ShowToast(a,"clicked")
+			if !fcore.CheckSelfPermission(a,fpermission.WRITE_EXTERNAL_STORAGE){
+				fcore.RequestPermissions(a,[]string{fpermission.CAMERA,fpermission.WRITE_EXTERNAL_STORAGE}, func(bools []bool) {
+
+				})
+			}
 		}),
 	)
 }

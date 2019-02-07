@@ -1,19 +1,26 @@
 package io.gitee.stevenzack.foxui;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.util.AbstractSequentialList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import fox.Fox;
@@ -36,6 +43,8 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     public DrawerLayout rootCtn;
     public Map<String, FObject> viewmap = new HashMap<>();
     private String TAG="FoxActivity";
+    public String onPermissionResults = null;
+    public static final int PERMISSION_REQUEST_CODE=12351;
 
     protected void mainFoxUI(DrawerLayout rootCtn) {//only called by MainActivity (the entry port of Go Code
         this.rootCtn=rootCtn;
@@ -201,10 +210,36 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                     }
                 });
                 break;
+            case "CheckSelfPermission":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    return String.valueOf(checkSelfPermission(v1));
+                }
+                break;
+            case "RequestPermissions":
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    String[] strs=v1.split(":");
+                    onPermissionResults=v2;
+                    requestPermissions(strs,PERMISSION_REQUEST_CODE);
+                }
+                break;
+            case "ShowToast":
+                Toast.makeText(this,v1,Toast.LENGTH_SHORT).show();
+                break;
             default:
                 return "";
         }
         return "";
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (onPermissionResults != null) {
+            JSONArray bs = new JSONArray();
+            for (int i = 0; i < grantResults.length; i++) {
+                bs.put(grantResults[i] == PackageManager.PERMISSION_GRANTED);
+            }
+            Fox.triggerFunction(this,onPermissionResults,bs.toString(),"","");
+            onPermissionResults = null;
+        }
+    }
 }

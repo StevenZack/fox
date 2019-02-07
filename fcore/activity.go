@@ -2,6 +2,7 @@ package fcore
 
 import (
 	"encoding/json"
+	"strings"
 )
 
 type FActivity struct {
@@ -77,4 +78,26 @@ func RunOnUIThreadWithFnId(a IActivity, f func(), fnId string) {
 }
 func RunOnUIThread(a IActivity, f func()) {
 	RunOnUIThreadWithFnId(a, f, NewToken())
+}
+func CheckSelfPermission(a IActivity, fpermission string) bool {
+	return a.SetAttr("Activity","CheckSelfPermission",fpermission,"")=="true"
+}
+func RequestPermissions(a IActivity, perms []string, onResult func([]bool))  {
+	fnId:=NewToken()
+	EventMap.Set(fnId, func(activity IActivity, s string, s2 string, s3 string) string {
+		if onResult == nil {
+			return ""
+		}
+		var bs []bool
+		e:=json.Unmarshal([]byte(s),&bs)
+		if e != nil {
+			return ""
+		}
+		onResult(bs)
+		return ""
+	})
+	a.SetAttr("Activity","RequestPermissions",strings.Join(perms,":"),fnId)
+}
+func ShowToast(a IActivity,text string)  {
+	a.SetAttr("Activity","ShowToast",text,"")
 }

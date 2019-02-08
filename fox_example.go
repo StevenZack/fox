@@ -2,9 +2,12 @@ package fox
 
 import (
 	"github.com/StevenZack/fox/fcore"
-	"github.com/StevenZack/fox/fcore/values/fcolor"
+	"github.com/StevenZack/fox/fcore/values/fgravity"
 	"github.com/StevenZack/fox/fcore/widget/fbox"
-	"github.com/StevenZack/fox/fcore/widget/fradio"
+	"github.com/StevenZack/fox/fcore/widget/fframebox"
+	"github.com/StevenZack/fox/fcore/widget/ftablayout"
+	"github.com/StevenZack/fox/fcore/widget/ftext"
+	"github.com/StevenZack/fox/fcore/widget/fviewpager"
 )
 
 type IActivity interface {
@@ -16,14 +19,19 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	rg:=fradio.NewGroup(a)
-	fbox.NewV(a).Size(-2,-2).DeferShow().Append(
-		rg.Size(-2,-1).Background(fcolor.Yellow).Append(
-			fradio.New(a).Text("one"),
-			fradio.New(a).Text("two"),
-			fradio.New(a).Text("three"),
-		).OnChange(func() {
-			fcore.ShowToast(a,rg.GetSelected().GetText())
+	tl := ftablayout.NewLayout(a)
+	vp := fviewpager.New(a).BindTabLayout(&tl.FBaseView)
+	fbox.NewV(a).DeferShow().Size(-2, -2).Append(
+		tl.Tabs(
+			fcore.NewTab("one"),
+			fcore.NewTab("two"),
+			fcore.NewTab("three"),
+		),
+		vp.Size(-2, -2).OnGetPage(func(pos int) fcore.IBaseView {
+			return fframebox.New(a).Size(-2, -2).Append(
+				ftext.New(a).Text(fcore.SPrintf(pos)).LayoutGravity(fgravity.Center))
+		}, func() int {
+			return 3
 		}),
-			)
+	)
 }

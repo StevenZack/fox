@@ -442,7 +442,7 @@ public abstract class FObject {
             e.printStackTrace();
         }
     }
-    void setElevation(String value) {
+    protected void setElevation(String value) {
         try {
             float f = Float.parseFloat(value);
             ViewCompat.setElevation(view,f);

@@ -41,7 +41,9 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FPopupMenu;
 import io.gitee.stevenzack.foxui.FObject.Widget.FProgress;
 import io.gitee.stevenzack.foxui.FObject.Widget.FRadio;
 import io.gitee.stevenzack.foxui.FObject.Widget.FRadioGroup;
+import io.gitee.stevenzack.foxui.FObject.Widget.FTabLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
+import io.gitee.stevenzack.foxui.FObject.Widget.FViewPager;
 
 public class FoxActivity extends AppCompatActivity implements IActivity {
     public Map<String, Drawable> drawableMap=new HashMap<>();
@@ -151,6 +153,12 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "RadioGroup":
                 fObject = new FRadioGroup(this);
+                break;
+            case "ViewPager":
+                fObject = new FViewPager(this);
+                break;
+            case "TabLayout":
+                fObject = new FTabLayout(this);
                 break;
         }
         fObject.vid = vid;

@@ -454,3 +454,61 @@ func (f *FBaseView) Selected(b bool) *FBaseView {
 func (f *FBaseView) IsSelected() bool {
 	return f.A.GetAttr(f.Vid,"IsSelected")=="true"
 }
+func (f *FBaseView) Tabs(ts ...*FTab) *FBaseView {
+	for _,t:=range ts{
+		f.A.SetAttr(f.Vid,"AddTab",JsonObject(t),"")
+	}
+	return f
+}
+func (f *FBaseView) TabTextColors(normal, selected string) *FBaseView {
+	f.A.SetAttr(f.Vid,"TabTextColors",normal, selected)
+	return f
+}
+func (f *FBaseView) TabIndicatorColor(color string) *FBaseView {
+	f.A.SetAttr(f.Vid,"TabIndicatorColor",color,"")
+	return f
+}
+func (f *FBaseView) Pages(ps ...*FPage) *FBaseView {
+	if ps==nil{
+		return f
+	}
+	f.A.SetAttr(f.Vid,"Pages",JsonArray(ps), "")
+	return f
+}
+func (f *FBaseView) OnGetPage(getView func(pos int)IBaseView,getCount func()int)*FBaseView  {
+	fnId,fnId2:=NewToken(),NewToken()
+	EventMap.Set(fnId, func(activity IActivity, s string, s2 string, s3 string) string {
+		i,e:=a2i(s)
+		if e != nil {
+			return ""
+		}
+		return getView(i).GetBaseView().Vid
+	})
+	EventMap.Set(fnId2, func(activity IActivity, s string, s2 string, s3 string) string {
+		return SPrintf(getCount())
+	})
+	f.A.SetAttr(f.Vid,"OnCreateView",fnId,"")
+	f.A.SetAttr(f.Vid,"OnGetCount",fnId2,"")
+	return f
+}
+func (f *FBaseView) BindTabLayout(t *FBaseView) *FBaseView {
+	f.A.SetAttr(f.Vid,"TabLayout",t.Vid,"")
+	return f
+}
+func (f *FBaseView) CurrentItem(pos int, soomth bool) *FBaseView {
+	f.A.SetAttr(f.Vid,"CurrentItem",SPrintf(pos),SPrintf(soomth))
+	return f
+}
+func (f *FBaseView) OnPageSelected(fn func(int))*FBaseView  {
+	fnId:=NewToken()
+	EventMap.Set(fnId, func(activity IActivity, s string, s2 string, s3 string) string {
+		i,e:=a2i(s)
+		if e != nil {
+			return ""
+		}
+		fn(i)
+		return ""
+	})
+	f.A.SetAttr(f.Vid,"OnPageSelected",fnId, "")
+	return f
+}

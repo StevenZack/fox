@@ -20,3 +20,20 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 	}
 	return EventMap.Get(fnId)(a, s, s1, s2)
 }
+
+type FPage struct {
+	VID string
+}
+type FTab struct {
+	Text, Icon string
+}
+
+func NewTab(text string) *FTab {
+	t := &FTab{}
+	t.Text = text
+	return t
+}
+func (t *FTab) IconSrc(s string) *FTab {
+	t.Icon = s
+	return t
+}

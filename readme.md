@@ -1,8 +1,12 @@
 # todos
 [x] popupMenu
+
 [x] progress
-- radioButton
-- radioGroup
+
+[x] radioButton
+
+[x] radioGroup
+
 - tablayout
 
 - service

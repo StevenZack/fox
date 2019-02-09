@@ -11,7 +11,7 @@
 
 [x] service
 [x] fab
-- snackbar
+[x] snackbar
 - space
 - spinner
 - style

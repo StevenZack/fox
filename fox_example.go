@@ -3,10 +3,10 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
-	"github.com/StevenZack/fox/fcore/widget/fcoordinatorlayout"
-	"github.com/StevenZack/fox/fcore/widget/ffab"
+	"github.com/StevenZack/fox/fcore/widget/fbox"
+	"github.com/StevenZack/fox/fcore/widget/fbutton"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
-	"github.com/StevenZack/fox/fcore/widget/fsnackbar"
+	"github.com/StevenZack/fox/fcore/widget/fspace"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
 )
 
@@ -19,12 +19,9 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	var fc *fcore.FBaseView
-	fc=fcoordinatorlayout.New(a).DeferShow().Size(-2,-2).Append(
-		ffab.New(a).Icon("drawable://add").LayoutGravity(fgravity.Bottom|fgravity.Right).OnClick(func() {
-			fsnackbar.New(a,fc).Text("text").Show()
-		}),
-		)
+	fbox.NewV(a).Size(-2,-2).DeferShow().Append(
+		fspace.New(a),
+		fbutton.New(a).Text("ok"))
 }
 
 func secondPage(a fcore.IActivity) {

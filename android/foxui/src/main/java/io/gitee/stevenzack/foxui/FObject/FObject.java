@@ -15,6 +15,7 @@ import org.json.JSONTokener;
 import java.util.HashMap;
 import java.util.Map;
 
+import fox.Fox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
 import io.gitee.stevenzack.foxui.FoxActivity;
 import io.gitee.stevenzack.foxui.Toolkit;
@@ -101,6 +102,14 @@ public abstract class FObject {
                 break;
             case "Clickable":
                 view.setClickable(value.equals("true"));
+                break;
+            case "OnClick":
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Fox.triggerFunction(parentController, value, "", "", "");
+                    }
+                });
                 break;
             // constraint
             case "Top2TopOf":

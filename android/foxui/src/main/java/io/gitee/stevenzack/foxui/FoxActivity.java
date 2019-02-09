@@ -57,6 +57,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FSwitch;
 import io.gitee.stevenzack.foxui.FObject.Widget.FTabLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 import io.gitee.stevenzack.foxui.FObject.Widget.FToolbar;
+import io.gitee.stevenzack.foxui.FObject.Widget.FValueAnimator;
 import io.gitee.stevenzack.foxui.FObject.Widget.FViewPager;
 
 import static io.gitee.stevenzack.foxui.Toolkit.parseMenu;
@@ -246,6 +247,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "Toolbar":
                 fObject = new FToolbar(this);
+                break;
+            case "ValueAnimator":
+                fObject = new FValueAnimator(this);
                 break;
         }
         fObject.vid = vid;

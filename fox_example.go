@@ -3,13 +3,11 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
-	"github.com/StevenZack/fox/fcore/widget/fbottomnav"
-	"github.com/StevenZack/fox/fcore/widget/fbox"
+	"github.com/StevenZack/fox/fcore/widget/fbutton"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
-	"github.com/StevenZack/fox/fcore/widget/fmenu"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
-	"github.com/StevenZack/fox/fcore/widget/ftoolbar"
-	"github.com/StevenZack/fox/fcore/widget/fviewpager"
+	"github.com/StevenZack/fox/fcore/widget/fvalueAnimator"
+	"strconv"
 )
 
 type IActivity interface {
@@ -21,39 +19,17 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	vp:=fviewpager.New(a)
-	bn:=fbottomnav.New(a)
-	fbox.NewV(a).DeferShow().Size(-2,-2).Append(
-		ftoolbar.New(a).Title("title").SubTitle("sub").NavigationIcon("drawable://add").OnNavigationIconClick(func() {
-			fcore.ShowToast(a,"clicked")
-		}).Menus(
-			fmenu.NewItem("one"),
-			fmenu.NewItem("search").Icon("drawable://add").ShowAsAction().OnClick(func() {
-				fcore.ShowToast(a,"search")
-			}),
-			fmenu.NewSub("two",fmenu.NewItem("sub").OnClick(func() {
-				fcore.ShowToast(a,"sub")
-			})),
-			),
-		vp.LayoutWeight(1).Size(-2,-2).OnGetPage(
-			func(pos int) fcore.IBaseView {
-				return ftext.New(a).Text(fcore.SPrintf(pos))
-			},
-			func() int {
-				return 2
-			},
-			).OnPageSelected(func(i int) {
-			bn.SelectedIndex(i)
-		}),
-		bn.Menus(
-			fmenu.NewItem("one").OnClick(func() {
-				vp.SelectedIndex(0)
-			}),
-			fmenu.NewItem("two").OnClick(func() {
-				vp.SelectedIndex(1)
-			}),
-			),
-			)
+	bt:=fbutton.New(a)
+	fframebox.New(a).DeferShow().Size(-2,-2).Append(
+		bt.Text("text").OnClick(func() {
+			fvalueAnimator.New(a).OfInt(0,100).Duration(3000).OnValueChanged(func(s string) {
+				i,e:=strconv.ParseFloat(s,64)
+				if e != nil {
+					return
+				}
+				bt.X(i)
+			}).Start()
+		}))
 }
 
 func secondPage(a fcore.IActivity) {

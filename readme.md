@@ -17,8 +17,8 @@
 [x] switch
 [x] bottomnav
 [x] toolbar
-- valueAnimator
-- viewpager
+[x] valueAnimator
+[x] viewpager
 - webview
 - imei
 - check

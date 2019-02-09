@@ -4,12 +4,9 @@ import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
 	"github.com/StevenZack/fox/fcore/widget/fbox"
-	"github.com/StevenZack/fox/fcore/widget/fbutton"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
-	"github.com/StevenZack/fox/fcore/widget/fspace"
-	"github.com/StevenZack/fox/fcore/widget/fspinner"
+	"github.com/StevenZack/fox/fcore/widget/fswitch"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
-	"time"
 )
 
 type IActivity interface {
@@ -21,17 +18,10 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	orgData:=[]string{"one","two"}
-	sp:=fspinner.New(a).List(orgData)
+	sw:=fswitch.New(a)
 	fbox.NewV(a).Size(-2,-2).DeferShow().Append(
-		sp.Size(-2,-1).OnItemClick(func(i int) {
-			fcore.ShowToast(a,fcore.SPrintf(orgData[i]))
-		}),
-		fspace.New(a),
-		fbutton.New(a).Text("ok").OnClick(func() {
-			orgData=append(orgData,fcore.SPrintf(time.Now().Second()))
-			sp.List(orgData)
-			sp.NotifyDataSetChanged()
+		sw.OnChange(func() {
+			fcore.ShowToast(a,"changed:"+fcore.SPrintf(sw.GetChecked()))
 		}))
 }
 

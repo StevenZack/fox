@@ -13,9 +13,8 @@
 [x] fab
 [x] snackbar
 [x] space
-- spinner
-- style
-- switch
+[x] spinner
+[x] switch
 - bottomnav
 - toolbar
 - valueAnimator

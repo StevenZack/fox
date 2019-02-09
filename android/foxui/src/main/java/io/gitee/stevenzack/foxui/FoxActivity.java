@@ -51,6 +51,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FRadioGroup;
 import io.gitee.stevenzack.foxui.FObject.Widget.FSnackbar;
 import io.gitee.stevenzack.foxui.FObject.Widget.FSpace;
 import io.gitee.stevenzack.foxui.FObject.Widget.FSpinner;
+import io.gitee.stevenzack.foxui.FObject.Widget.FSwitch;
 import io.gitee.stevenzack.foxui.FObject.Widget.FTabLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 import io.gitee.stevenzack.foxui.FObject.Widget.FViewPager;
@@ -206,6 +207,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "Spinner":
                 fObject = new FSpinner(this);
+                break;
+            case "Switch":
+                fObject = new FSwitch(this);
                 break;
         }
         fObject.vid = vid;

@@ -549,3 +549,10 @@ func (f *FBaseView) GetSelectedIndex() int {
 	}
 	return i
 }
+func (f *FBaseView) Checked(b bool) *FBaseView {
+	f.A.SetAttr(f.Vid,"Checked",SPrintf(b),"")
+	return f
+}
+func (f *FBaseView) GetChecked() bool {
+	return "true"==f.A.GetAttr(f.Vid, "Checked")
+}

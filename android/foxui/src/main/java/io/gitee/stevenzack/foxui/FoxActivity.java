@@ -2,14 +2,19 @@ package io.gitee.stevenzack.foxui;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -69,6 +74,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FWebView;
 import static io.gitee.stevenzack.foxui.Toolkit.parseMenu;
 
 public class FoxActivity extends AppCompatActivity implements IActivity {
+    private static final int FILE_SELECT_CODE = 26143;
     public Map<String, Drawable> drawableMap=new HashMap<>();
     public Map<MenuItem, String> menuItemsOnClickMap = new HashMap<>();
     public String optionMenus;
@@ -81,6 +87,11 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     public static final int PERMISSION_REQUEST_CODE=12351;
 
     public boolean notFinishFlag;
+    public Map<Integer, OnActivityResultListener> onActivityResults = new HashMap<>();
+
+    public interface OnActivityResultListener{
+        void onActivityResult(Intent intent);
+    }
     protected void mainFoxUI(DrawerLayout rootCtn) {//only called by MainActivity (the entry port of Go Code
         this.rootCtn=rootCtn;
         registerUIBro();
@@ -358,11 +369,14 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 String android_id = Settings.Secure.getString(getContentResolver(),
                         Settings.Secure.ANDROID_ID);
                 return android_id;
+            case "Build.MODEL":
+                return Build.MODEL;
+            case "ExternalStorageDirectory":
+                return Environment.getExternalStorageDirectory().getAbsolutePath();
             default:
                 return "";
         }
     }
-
     private String setActivityAttr(String attr, final String v1, final String v2) {
         switch (attr) {
             case "RunOnUIThread":
@@ -388,12 +402,83 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
             case "ShowToast":
                 Toast.makeText(this,v1,Toast.LENGTH_SHORT).show();
                 break;
+            case "OpenFileChooser":// [ type : "*/*" , allowMultiple : "true" , callback : "218hxjgs861h9cb1298" ]
+                try {
+                    Intent intent1 = new Intent(Intent.ACTION_GET_CONTENT);
+                    final JSONArray array = (JSONArray) (new JSONTokener(v1).nextValue());
+                    intent1.setType(array.getString(0));
+                    intent1.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent1.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, array.getString(1).equals("true"));
+                    startActivityForResult(Intent.createChooser(intent1, ""),FILE_SELECT_CODE);
+                    final String fnID = array.getString(2);
+                    onActivityResults.put(FILE_SELECT_CODE, new OnActivityResultListener() {
+                        @Override
+                        public void onActivityResult(Intent data) {
+                            if (data == null) {
+                                return;
+                            }
+                            Uri uri = data.getData();
+                            JSONArray array1 = new JSONArray();
+                            try {
+                                if (uri != null) {
+                                    String path = null;
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                        path = Toolkit.getPathByUri4kitkat(FoxActivity.this, uri);
+                                    }else {
+                                        path=Toolkit.getPathByUriBelowKitkat(FoxActivity.this,uri);
+                                    }
+                                    if (path != null) {
+                                        array1.put(path);
+                                    }
+                                } else {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                        ClipData clipData = data.getClipData();
+                                        if (clipData != null) {
+                                            for (int i=0;i<clipData.getItemCount();i++) {
+                                                ClipData.Item item = clipData.getItemAt(i);
+                                                Uri uri1=item.getUri();
+                                                String url = null;
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                                    url = Toolkit.getPathByUri4kitkat(FoxActivity.this, uri1);
+                                                }else {
+                                                    url=Toolkit.getPathByUriBelowKitkat(FoxActivity.this,uri1);
+                                                }
+                                                if (url!=null)
+                                                    array1.put(url);
+                                            }
+                                        }
+                                    }else {
+                                        Toast.makeText(FoxActivity.this,"No file manager installed",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                if (array1.length() == 0) {
+                                    Toast.makeText(FoxActivity.this,"Failed",Toast.LENGTH_LONG).show();
+                                }else {
+                                    Fox.triggerFunction(FoxActivity.this,fnID, array1.toString(),"","");
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                                Toast.makeText(FoxActivity.this,e.toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(FoxActivity.this,e.toString(),Toast.LENGTH_LONG).show();
+                }
+                break;
             default:
                 return "";
         }
         return "";
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (onActivityResults.containsKey(requestCode)) {
+            onActivityResults.get(requestCode).onActivityResult(data);
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (onPermissionResults != null) {

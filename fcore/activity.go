@@ -107,3 +107,9 @@ func GetIMEI(a IActivity) string {
 func GetUniqueID(a IActivity)string  {
 	return a.GetAttr("Activity","UniqueID")
 }
+func GetExternalStorageDirectory(a IActivity) string {
+	return a.GetAttr("Activity","ExternalStorageDirectory")
+}
+func GetModel(a IActivity) string {
+	return a.GetAttr("Activity","Build.MODEL")
+}

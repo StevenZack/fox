@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="346ace51-34be-47e5-acfb-dc71c9adc6ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/foxui/src/main/java/io/gitee/stevenzack/foxui/FObject/FObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/foxui/src/main/java/io/gitee/stevenzack/foxui/FObject/FObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fcore/fbaseview.go" beforeDir="false" afterPath="$PROJECT_DIR$/fcore/fbaseview.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/foxui/src/main/java/io/gitee/stevenzack/foxui/FoxActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/foxui/src/main/java/io/gitee/stevenzack/foxui/FoxActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fcore/activity.go" beforeDir="false" afterPath="$PROJECT_DIR$/fcore/activity.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fox_example.go" beforeDir="false" afterPath="$PROJECT_DIR$/fox_example.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
@@ -19,17 +19,35 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fox_example.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+            <state relative-caret-position="344">
+              <caret line="25" column="59" selection-start-line="25" selection-start-column="59" selection-end-line="25" selection-end-column="59" />
+              <folding>
+                <element signature="e#13#355#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fcore/fbaseview.go">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="450">
+                <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fcore/widget/ffilechooser/ffilechooser.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="578" column="40" selection-start-line="578" selection-start-column="40" selection-end-line="578" selection-end-column="40" />
+            <state relative-caret-position="224">
+              <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+              <folding>
+                <element signature="e#22#73#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,12 +166,13 @@
         <option value="$PROJECT_DIR$/fcore/widget/ftoolbar/ftoolbar.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fvalueAnimator/fvalueAnimator.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fwebview/fwebview.go" />
-        <option value="$PROJECT_DIR$/fcore/activity.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fcheck/fcheck.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fscoll/fscoll.go" />
-        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/fcore/fbaseview.go" />
+        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/fox_example.go" />
+        <option value="$PROJECT_DIR$/fcore/widget/ffilechooser/ffilechooser.go" />
+        <option value="$PROJECT_DIR$/fcore/activity.go" />
       </list>
     </option>
   </component>
@@ -194,7 +213,7 @@
               <item name="fox" type="462c0819:PsiDirectoryNode" />
               <item name="fcore" type="462c0819:PsiDirectoryNode" />
               <item name="widget" type="462c0819:PsiDirectoryNode" />
-              <item name="fwebview" type="462c0819:PsiDirectoryNode" />
+              <item name="ffilechooser" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -490,13 +509,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fcore/activity.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="81" column="5" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fcore/widget/fbutton/fbutton.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -521,24 +533,44 @@
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="420">
-            <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <first_editor relative-caret-position="450">
+            <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fcore/activity.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="113" column="44" selection-start-line="113" selection-start-column="44" selection-end-line="113" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/fcore/fbaseview.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="578" column="40" selection-start-line="578" selection-start-column="40" selection-end-line="578" selection-end-column="40" />
+        <state relative-caret-position="479">
+          <caret line="581" lean-forward="true" selection-start-line="581" selection-end-line="581" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fcore/widget/ffilechooser/ffilechooser.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+          <folding>
+            <element signature="e#22#73#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fox_example.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+        <state relative-caret-position="344">
+          <caret line="25" column="59" selection-start-line="25" selection-start-column="59" selection-end-line="25" selection-end-column="59" />
+          <folding>
+            <element signature="e#13#355#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

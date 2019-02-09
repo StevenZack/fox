@@ -8,6 +8,7 @@ import (
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
 	"github.com/StevenZack/fox/fcore/widget/fmenu"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
+	"github.com/StevenZack/fox/fcore/widget/ftoolbar"
 	"github.com/StevenZack/fox/fcore/widget/fviewpager"
 )
 
@@ -23,6 +24,17 @@ func Main(a IActivity) {
 	vp:=fviewpager.New(a)
 	bn:=fbottomnav.New(a)
 	fbox.NewV(a).DeferShow().Size(-2,-2).Append(
+		ftoolbar.New(a).Title("title").SubTitle("sub").NavigationIcon("drawable://add").OnNavigationIconClick(func() {
+			fcore.ShowToast(a,"clicked")
+		}).Menus(
+			fmenu.NewItem("one"),
+			fmenu.NewItem("search").Icon("drawable://add").ShowAsAction().OnClick(func() {
+				fcore.ShowToast(a,"search")
+			}),
+			fmenu.NewSub("two",fmenu.NewItem("sub").OnClick(func() {
+				fcore.ShowToast(a,"sub")
+			})),
+			),
 		vp.LayoutWeight(1).Size(-2,-2).OnGetPage(
 			func(pos int) fcore.IBaseView {
 				return ftext.New(a).Text(fcore.SPrintf(pos))

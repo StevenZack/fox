@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -55,11 +56,15 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FSpinner;
 import io.gitee.stevenzack.foxui.FObject.Widget.FSwitch;
 import io.gitee.stevenzack.foxui.FObject.Widget.FTabLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
+import io.gitee.stevenzack.foxui.FObject.Widget.FToolbar;
 import io.gitee.stevenzack.foxui.FObject.Widget.FViewPager;
+
+import static io.gitee.stevenzack.foxui.Toolkit.parseMenu;
 
 public class FoxActivity extends AppCompatActivity implements IActivity {
     public Map<String, Drawable> drawableMap=new HashMap<>();
     public Map<MenuItem, String> menuItemsOnClickMap = new HashMap<>();
+    public String optionMenus;
     private String activityId="MainActivity";
     public DrawerLayout rootCtn;
     public Map<String, FObject> viewmap = new HashMap<>();
@@ -102,6 +107,30 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     @Override
     public String getActivityId() {
         return activityId;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (menuItemsOnClickMap.containsKey(item)) {
+            Fox.triggerFunction(this,menuItemsOnClickMap.get(item), "","","");
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (optionMenus== null || optionMenus == "" || optionMenus == "[]") {
+            return false;
+        }
+        try {
+            JSONArray array = (JSONArray) (new JSONTokener(optionMenus).nextValue());
+            parseMenu(this,menu,array);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -214,6 +243,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "BottomNav":
                 fObject = new FBottomNav(this);
+                break;
+            case "Toolbar":
+                fObject = new FToolbar(this);
                 break;
         }
         fObject.vid = vid;

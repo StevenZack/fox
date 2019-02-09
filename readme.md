@@ -16,7 +16,7 @@
 [x] spinner
 [x] switch
 [x] bottomnav
-- toolbar
+[x] toolbar
 - valueAnimator
 - viewpager
 - webview

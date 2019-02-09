@@ -37,6 +37,7 @@ import io.gitee.stevenzack.foxui.FObject.Service.FService;
 import io.gitee.stevenzack.foxui.FObject.Widget.FBox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
+import io.gitee.stevenzack.foxui.FObject.Widget.FCoordinatorLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FDialog;
 import io.gitee.stevenzack.foxui.FObject.Widget.FEdit;
 import io.gitee.stevenzack.foxui.FObject.Widget.FFab;
@@ -189,7 +190,14 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 fObject = new FFab(this);
                 break;
             case "Snackbar":
-                fObject = new FSnackbar(this, rootCtn);
+                String[] vids=vid.split(",");
+                fObject = new FSnackbar(this, viewmap.get(vids[1]).view);
+                fObject.vid = vids[0];
+                fObject.vtype = vtype;
+                viewmap.put(fObject.vid, fObject);
+                return fObject.vid;
+            case "CoordinatorLayout":
+                fObject = new FCoordinatorLayout(this);
                 break;
         }
         fObject.vid = vid;

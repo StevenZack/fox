@@ -3,6 +3,7 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
+	"github.com/StevenZack/fox/fcore/widget/fcoordinatorlayout"
 	"github.com/StevenZack/fox/fcore/widget/ffab"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
 	"github.com/StevenZack/fox/fcore/widget/fsnackbar"
@@ -18,13 +19,12 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	fframebox.New(a).DeferShow().Size(-2,-2).Append(
-		ffab.New(a).Icon("drawable://add").OnClick(func() {
-			fcore.StartActivity(a,secondPage,nil)
-		}).LayoutGravity(fgravity.Right|fgravity.Bottom).Margin(10))
-	fsnackbar.New(a).Text("asd").Action("open", func() {
-		fcore.StartUriIntent(a,"https://sogou.com")
-	}).Show()
+	var fc *fcore.FBaseView
+	fc=fcoordinatorlayout.New(a).DeferShow().Size(-2,-2).Append(
+		ffab.New(a).Icon("drawable://add").LayoutGravity(fgravity.Bottom|fgravity.Right).OnClick(func() {
+			fsnackbar.New(a,fc).Text("text").Show()
+		}),
+		)
 }
 
 func secondPage(a fcore.IActivity) {

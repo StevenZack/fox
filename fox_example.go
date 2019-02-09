@@ -3,11 +3,12 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
+	"github.com/StevenZack/fox/fcore/widget/fbox"
 	"github.com/StevenZack/fox/fcore/widget/fbutton"
+	"github.com/StevenZack/fox/fcore/widget/fedit"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
-	"github.com/StevenZack/fox/fcore/widget/fvalueAnimator"
-	"strconv"
+	"github.com/StevenZack/fox/fcore/widget/fwebview"
 )
 
 type IActivity interface {
@@ -20,16 +21,16 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 
 func Main(a IActivity) {
 	bt:=fbutton.New(a)
-	fframebox.New(a).DeferShow().Size(-2,-2).Append(
-		bt.Text("text").OnClick(func() {
-			fvalueAnimator.New(a).OfInt(0,100).Duration(3000).OnValueChanged(func(s string) {
-				i,e:=strconv.ParseFloat(s,64)
-				if e != nil {
-					return
-				}
-				bt.X(i)
-			}).Start()
-		}))
+	et:=fedit.New(a)
+	wv:=fwebview.New(a)
+	fbox.New(a).DeferShow().Size(-2,-2).Append(
+		fwebview.NewItem(a,"http://stevenzack.coding.me/asd/out.webp"),
+		et.Size(-2,-1),
+		bt.Text("load").OnClick(func() {
+			wv.LoadUri(et.GetText())
+		}),
+		wv.Size(-2,-2),
+		)
 }
 
 func secondPage(a fcore.IActivity) {

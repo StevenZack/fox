@@ -59,6 +59,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 import io.gitee.stevenzack.foxui.FObject.Widget.FToolbar;
 import io.gitee.stevenzack.foxui.FObject.Widget.FValueAnimator;
 import io.gitee.stevenzack.foxui.FObject.Widget.FViewPager;
+import io.gitee.stevenzack.foxui.FObject.Widget.FWebView;
 
 import static io.gitee.stevenzack.foxui.Toolkit.parseMenu;
 
@@ -66,6 +67,7 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     public Map<String, Drawable> drawableMap=new HashMap<>();
     public Map<MenuItem, String> menuItemsOnClickMap = new HashMap<>();
     public String optionMenus;
+    public List<Runnable> onDestroyEvent=new ArrayList<>();
     private String activityId="MainActivity";
     public DrawerLayout rootCtn;
     public Map<String, FObject> viewmap = new HashMap<>();
@@ -91,6 +93,15 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        for (int i = 0; i < onDestroyEvent.size(); i++) {
+            onDestroyEvent.get(i).run();
+        }
+    }
+
     private void registerUIBro(){
         LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -250,6 +261,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "ValueAnimator":
                 fObject = new FValueAnimator(this);
+                break;
+            case "WebView":
+                fObject = new FWebView(this);
                 break;
         }
         fObject.vid = vid;

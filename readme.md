@@ -19,7 +19,7 @@
 [x] toolbar
 [x] valueAnimator
 [x] viewpager
-- webview
+[x] webview
 - imei
 - check
 - colors
@@ -32,3 +32,4 @@
 
 - getFromViewHolder
 - drawerlayout
+- setOndestoryFn

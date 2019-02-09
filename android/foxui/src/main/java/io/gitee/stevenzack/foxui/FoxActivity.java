@@ -47,6 +47,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FPopupMenu;
 import io.gitee.stevenzack.foxui.FObject.Widget.FProgress;
 import io.gitee.stevenzack.foxui.FObject.Widget.FRadio;
 import io.gitee.stevenzack.foxui.FObject.Widget.FRadioGroup;
+import io.gitee.stevenzack.foxui.FObject.Widget.FSnackbar;
 import io.gitee.stevenzack.foxui.FObject.Widget.FTabLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FText;
 import io.gitee.stevenzack.foxui.FObject.Widget.FViewPager;
@@ -187,6 +188,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
             case "Fab":
                 fObject = new FFab(this);
                 break;
+            case "Snackbar":
+                fObject = new FSnackbar(this, rootCtn);
+                break;
         }
         fObject.vid = vid;
         fObject.vtype = vtype;
@@ -212,7 +216,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     @Override
     public String show(String vid) {
         FObject v = viewmap.get(vid);
-        if (v != null) {
+        if (v.vtype.equals("Snackbar")) {
+            v.setAttr("Show", "", "");
+        }else  {
             rootCtn.addView(v.view);
         }
         return "";

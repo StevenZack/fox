@@ -516,3 +516,12 @@ func (f *FBaseView) Icon(s string)*FBaseView  {
 	f.A.SetAttr(f.Vid,"Icon",s,"")
 	return f
 }
+func (f *FBaseView) Action(s string, onClick func()) *FBaseView {
+	fnId:=NewToken()
+	EventMap.Set(fnId, func(activity IActivity, s string, s2 string, s3 string) string {
+		onClick()
+		return ""
+	})
+	f.A.SetAttr(f.Vid,"Action",s,fnId)
+	return f
+}

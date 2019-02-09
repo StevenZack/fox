@@ -10,7 +10,7 @@
 [x] tablayout
 
 [x] service
-- fab
+[x] fab
 - snackbar
 - space
 - spinner

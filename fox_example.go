@@ -5,6 +5,7 @@ import (
 	"github.com/StevenZack/fox/fcore/values/fgravity"
 	"github.com/StevenZack/fox/fcore/widget/ffab"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
+	"github.com/StevenZack/fox/fcore/widget/fsnackbar"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
 )
 
@@ -21,6 +22,9 @@ func Main(a IActivity) {
 		ffab.New(a).Icon("drawable://add").OnClick(func() {
 			fcore.StartActivity(a,secondPage,nil)
 		}).LayoutGravity(fgravity.Right|fgravity.Bottom).Margin(10))
+	fsnackbar.New(a).Text("asd").Action("open", func() {
+		fcore.StartUriIntent(a,"https://sogou.com")
+	}).Show()
 }
 
 func secondPage(a fcore.IActivity) {

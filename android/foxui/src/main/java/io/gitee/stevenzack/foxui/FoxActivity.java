@@ -1,5 +1,6 @@
 package io.gitee.stevenzack.foxui;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +8,15 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -340,6 +344,16 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
         switch (attr) {
             case "PackageName":
                 return getPackageName();
+            case "IMEI":
+                TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    return Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                }
+                return telephonyManager.getDeviceId();
+            case "UniqueID":
+                String android_id = Settings.Secure.getString(getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+                return android_id;
             default:
                 return "";
         }
@@ -357,7 +371,7 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "CheckSelfPermission":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    return String.valueOf(checkSelfPermission(v1));
+                    return String.valueOf(checkSelfPermission(v1)==PackageManager.PERMISSION_GRANTED);
                 }
                 break;
             case "RequestPermissions":

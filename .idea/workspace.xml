@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="346ace51-34be-47e5-acfb-dc71c9adc6ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/foxui/src/main/java/io/gitee/stevenzack/foxui/FObject/Widget/FWebView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/foxui/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/foxui/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/foxui/src/main/java/io/gitee/stevenzack/foxui/FoxActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/foxui/src/main/java/io/gitee/stevenzack/foxui/FoxActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fcore/activity.go" beforeDir="false" afterPath="$PROJECT_DIR$/fcore/activity.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fox_example.go" beforeDir="false" afterPath="$PROJECT_DIR$/fox_example.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
@@ -19,8 +21,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fox_example.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+            <state relative-caret-position="330">
+              <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="510">
+                <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fcore/activity.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="840">
+              <caret line="108" column="1" lean-forward="true" selection-start-line="108" selection-start-column="1" selection-end-line="108" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -28,7 +51,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fcore/widget/fwebview/fwebview.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
+            <state relative-caret-position="2925">
               <caret line="198" selection-start-line="198" selection-end-line="198" />
               <folding>
                 <element signature="e#18#112#0" expanded="true" />
@@ -127,7 +150,6 @@
         <option value="$PROJECT_DIR$/fcore/widget/fdialog/fdialog.go" />
         <option value="$PROJECT_DIR$/fcore/values/fcolor/fcolor.go" />
         <option value="$PROJECT_DIR$/fcore/values/fpermission/fpermission.go" />
-        <option value="$PROJECT_DIR$/fcore/activity.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fclipboard/fclipboard.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fpopupMenu/fpopupMenu.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fmenu/fmenu.go" />
@@ -160,9 +182,10 @@
         <option value="$PROJECT_DIR$/fcore/fbaseview.go" />
         <option value="$PROJECT_DIR$/fcore/widget/ftoolbar/ftoolbar.go" />
         <option value="$PROJECT_DIR$/fcore/widget/fvalueAnimator/fvalueAnimator.go" />
-        <option value="$PROJECT_DIR$/fox_example.go" />
-        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/fcore/widget/fwebview/fwebview.go" />
+        <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/fcore/activity.go" />
+        <option value="$PROJECT_DIR$/fox_example.go" />
       </list>
     </option>
   </component>
@@ -236,9 +259,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="3" width="1280" height="1046" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23381877" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23705502" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -251,7 +273,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32719395" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3261105" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -497,6 +519,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fcore/widget/fwebview/fwebview.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2925">
+          <caret line="198" selection-start-line="198" selection-end-line="198" />
+          <folding>
+            <element signature="e#18#112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/fcore/widget/fbutton/fbutton.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -507,8 +539,8 @@
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="492">
-            <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+          <first_editor relative-caret-position="510">
+            <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
           </first_editor>
           <second_editor />
         </state>
@@ -516,25 +548,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fcore/activity.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="61" column="12" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fcore/widget/fwebview/fwebview.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="198" selection-start-line="198" selection-end-line="198" />
-          <folding>
-            <element signature="e#18#112#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="840">
+          <caret line="108" column="1" lean-forward="true" selection-start-line="108" selection-start-column="1" selection-end-line="108" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fox_example.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+        <state relative-caret-position="330">
+          <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
         </state>
       </provider>
     </entry>

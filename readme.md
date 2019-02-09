@@ -20,9 +20,9 @@
 [x] valueAnimator
 [x] viewpager
 [x] webview
+[x] colors
 - imei
 - check
-- colors
 - event
 - scroll
 - menu
@@ -30,6 +30,6 @@
 
 - fileChooser
 
-- getFromViewHolder
 - drawerlayout
 - setOndestoryFn
+- getFromViewHolder

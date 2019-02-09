@@ -101,3 +101,9 @@ func RequestPermissions(a IActivity, perms []string, onResult func([]bool))  {
 func ShowToast(a IActivity,text string)  {
 	a.SetAttr("Activity","ShowToast",text,"")
 }
+func GetIMEI(a IActivity) string {
+	return a.GetAttr("Activity","IMEI")
+}
+func GetUniqueID(a IActivity)string  {
+	return a.GetAttr("Activity","UniqueID")
+}

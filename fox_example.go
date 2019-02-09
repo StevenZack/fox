@@ -3,12 +3,11 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
+	"github.com/StevenZack/fox/fcore/values/fpermission"
 	"github.com/StevenZack/fox/fcore/widget/fbox"
 	"github.com/StevenZack/fox/fcore/widget/fbutton"
-	"github.com/StevenZack/fox/fcore/widget/fedit"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
-	"github.com/StevenZack/fox/fcore/widget/fwebview"
 )
 
 type IActivity interface {
@@ -20,17 +19,17 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	bt:=fbutton.New(a)
-	et:=fedit.New(a)
-	wv:=fwebview.New(a)
-	fbox.New(a).DeferShow().Size(-2,-2).Append(
-		fwebview.NewItem(a,"http://stevenzack.coding.me/asd/out.webp"),
-		et.Size(-2,-1),
-		bt.Text("load").OnClick(func() {
-			wv.LoadUri(et.GetText())
+	fbox.NewV(a).DeferShow().Size(-2,-2).Append(
+		fbutton.New(a).Text("imei").OnClick(func() {
+			if fcore.CheckSelfPermission(a, fpermission.READ_PHONE_STATE) {
+				fcore.ShowToast(a,fcore.GetIMEI(a))
+			}else{
+				fcore.RequestPermissions(a,[]string{fpermission.READ_PHONE_STATE},nil)
+			}
 		}),
-		wv.Size(-2,-2),
-		)
+		fbutton.New(a).Text("id").OnClick(func() {
+			fcore.ShowToast(a,fcore.GetUniqueID(a))
+		}))
 }
 
 func secondPage(a fcore.IActivity) {

@@ -21,8 +21,8 @@
 [x] viewpager
 [x] webview
 [x] colors
-- imei
-- check
+[x] imei
+[x] check
 - event
 - scroll
 - menu

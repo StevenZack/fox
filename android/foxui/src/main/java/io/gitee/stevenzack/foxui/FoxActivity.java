@@ -42,6 +42,7 @@ import io.gitee.stevenzack.foxui.FObject.Service.FService;
 import io.gitee.stevenzack.foxui.FObject.Widget.FBottomNav;
 import io.gitee.stevenzack.foxui.FObject.Widget.FBox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
+import io.gitee.stevenzack.foxui.FObject.Widget.FCheck;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FCoordinatorLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FDialog;
@@ -268,6 +269,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "WebView":
                 fObject = new FWebView(this);
+                break;
+            case "Check":
+                fObject = new FCheck(this);
                 break;
         }
         fObject.vid = vid;

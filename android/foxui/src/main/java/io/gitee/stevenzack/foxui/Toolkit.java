@@ -335,6 +335,7 @@ public class Toolkit {
         void onDrawableReady(Drawable d);
     }
     public static void file2Drawable(final FoxActivity parentUIController, String value, final OnDrawableReadyListener listener) {
+        Log.d(TAG, "file2Drawable: value = "+value);
         if (value.startsWith("file://")) {
             String path=value.substring("file://".length());
             Drawable draw=Drawable.createFromPath(path);
@@ -349,7 +350,10 @@ public class Toolkit {
                 e.printStackTrace();
             }
         } else if (value.startsWith("drawable://")) {
-//            listener.onDrawableReady(ContextCompat.getDrawable(parentUIController.activity, src));
+            switch (value.substring("drawable://".length())) {
+                case "add":
+                    listener.onDrawableReady(ContextCompat.getDrawable(parentUIController,R.drawable.add));
+            }
         } else if (value.equals("RippleEffect")) {
             Log.d(TAG, "file2Drawable: set rippleEffect1");
             listener.onDrawableReady( parentUIController.getResources().getDrawable(R.drawable.ripple));

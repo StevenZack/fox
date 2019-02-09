@@ -39,6 +39,7 @@ import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FDialog;
 import io.gitee.stevenzack.foxui.FObject.Widget.FEdit;
+import io.gitee.stevenzack.foxui.FObject.Widget.FFab;
 import io.gitee.stevenzack.foxui.FObject.Widget.FFrameLayout;
 import io.gitee.stevenzack.foxui.FObject.Widget.FImage;
 import io.gitee.stevenzack.foxui.FObject.Widget.FListView;
@@ -182,6 +183,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "TabLayout":
                 fObject = new FTabLayout(this);
+                break;
+            case "Fab":
+                fObject = new FFab(this);
                 break;
         }
         fObject.vid = vid;

@@ -512,3 +512,7 @@ func (f *FBaseView) OnPageSelected(fn func(int))*FBaseView  {
 	f.A.SetAttr(f.Vid,"OnPageSelected",fnId, "")
 	return f
 }
+func (f *FBaseView) Icon(s string)*FBaseView  {
+	f.A.SetAttr(f.Vid,"Icon",s,"")
+	return f
+}

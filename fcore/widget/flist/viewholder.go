@@ -3,8 +3,10 @@ package flist
 import (
 	"github.com/StevenZack/fox/fcore/widget/fbox"
 	"github.com/StevenZack/fox/fcore/widget/fbutton"
+	"github.com/StevenZack/fox/fcore/widget/fcheck"
 	"github.com/StevenZack/fox/fcore/widget/fconstraintbox"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
+	"github.com/StevenZack/fox/fcore/widget/ftext"
 
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/widget/fimage"
@@ -80,3 +82,23 @@ func (vh *ViewHolder) GetFrameBoxByItemId(iid string) *fframebox.FFrameBox {
 	}
 	return nil
 }
+
+func (vh *ViewHolder) GetTextByItemId(iid string) *ftext.FText {
+	if v, ok := vh.Vlist[iid]; ok {
+		if bt,ok:=fcore.ViewMap.Get(v).(*ftext.FText);ok {
+			return bt
+		}
+	}
+	return nil
+}
+
+func (vh *ViewHolder) GetCheckBoxByItemId(s string) *fcheck.FCheck {
+	if v, ok := vh.Vlist[s]; ok {
+		if bt,ok:=fcore.ViewMap.Get(v).(*fcheck.FCheck);ok {
+			return bt
+		}
+	}
+	return nil
+}
+
+

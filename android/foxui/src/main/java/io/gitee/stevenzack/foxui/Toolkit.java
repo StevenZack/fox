@@ -360,6 +360,8 @@ public class Toolkit {
             Log.d(TAG, "file2Drawable: set rippleEffect");
         } else if (value.startsWith("fdrawable://")) {
             listener.onDrawableReady( parentUIController.drawableMap.get(value));
+        }else if(value.equals("RadiusCorner")){
+            listener.onDrawableReady(parentUIController.getResources().getDrawable(R.drawable.radius_corner));
         }
     }
 }

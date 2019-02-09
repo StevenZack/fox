@@ -1,5 +1,6 @@
 package io.gitee.stevenzack.foxui.FObject.Widget;
 
+import android.graphics.Color;
 import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +41,9 @@ public class FButton extends FObject {
         switch (attr) {
             case "Text":
                 v.setText(value);
+                break;
+            case "TextColor":
+                v.setTextColor(Color.parseColor(value));
                 break;
             case "OnClick":
                 v.setOnClickListener(new View.OnClickListener() {

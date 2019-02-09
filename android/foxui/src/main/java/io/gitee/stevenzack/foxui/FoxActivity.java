@@ -88,6 +88,7 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
 
     public boolean notFinishFlag;
     public Map<Integer, OnActivityResultListener> onActivityResults = new HashMap<>();
+    private String onBackgPressedFn;
 
     public interface OnActivityResultListener{
         void onActivityResult(Intent intent);
@@ -115,6 +116,18 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
         super.onDestroy();
         for (int i = 0; i < onDestroyEvent.size(); i++) {
             onDestroyEvent.get(i).run();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (onBackgPressedFn == null) {
+            super.onBackPressed();
+        }
+        String result=Fox.triggerFunction(this,onBackgPressedFn,"","","");
+        Log.d(TAG, "onBackPressed: result="+result);
+        if (result.equals("true")){
+            super.onBackPressed();
         }
     }
 
@@ -401,6 +414,15 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "ShowToast":
                 Toast.makeText(this,v1,Toast.LENGTH_SHORT).show();
+                break;
+            case "BackPressed":
+                onBackPressed();
+                break;
+            case "OnBackPressed":
+                onBackgPressedFn = v1;
+                break;
+            case "Finish":
+                finish();
                 break;
             case "OpenFileChooser":// [ type : "*/*" , allowMultiple : "true" , callback : "218hxjgs861h9cb1298" ]
                 try {

@@ -579,3 +579,7 @@ func (v *FBaseView) OnTouch(f func(TouchEvent))*FBaseView {
 	v.A.SetAttr(v.Vid,"OnTouch", fnId,"")
 	return v
 }
+func (f *FBaseView) ScaleType(fscaletype string) *FBaseView {
+	f.A.SetAttr(f.Vid,"ScaleType",fscaletype,"")
+	return f
+}

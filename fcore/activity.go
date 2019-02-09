@@ -113,3 +113,13 @@ func GetExternalStorageDirectory(a IActivity) string {
 func GetModel(a IActivity) string {
 	return a.GetAttr("Activity","Build.MODEL")
 }
+func SetOnBackPressed(a IActivity, fn func() bool) {
+	fnId:=NewToken()
+	EventMap.Set(fnId, func(activity IActivity, s string, s2 string, s3 string) string {
+		return SPrintf(fn())
+	})
+	a.SetAttr("Activity","OnBackPressed",fnId,"")
+}
+func Finish(a IActivity) {
+	a.SetAttr("Activity","Finish","","")
+}

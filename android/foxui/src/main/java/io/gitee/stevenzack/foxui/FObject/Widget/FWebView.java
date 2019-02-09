@@ -132,7 +132,6 @@ public class FWebView extends FObject {
                     try {
                         wc.urlHandlersMap = new HashMap<>();
                         JSONObject object = (JSONObject) (new JSONTokener(value).nextValue());
-                        Log.d(TAG, "setAttr: HandleUrl"+value);
                         for (Iterator<String> it = object.keys(); it.hasNext(); ) {
                             String key = it.next();
                             wc.urlHandlersMap.put(key, object.getString(key));
@@ -165,7 +164,6 @@ public class FWebView extends FObject {
             if (urlHandlersMap==null) {
                 return super.shouldOverrideUrlLoading(view, request);
             }else {
-                Log.d(TAG, "shouldOverrideUrlLoading: "+urlHandlersMap.size());
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     String url = request.getUrl().toString();
                     if (urlHandlersMap.containsKey(removeQuery(url))) {
@@ -189,7 +187,6 @@ public class FWebView extends FObject {
             if (urlHandlersMap==null) {
                 return super.shouldOverrideUrlLoading(view, url);
             }else {
-                Log.d(TAG, "shouldOverrideUrlLoading2: "+urlHandlersMap.size());
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     if (urlHandlersMap.containsKey(removeQuery(url))) {
                         String fnId = urlHandlersMap.get(removeQuery(url));

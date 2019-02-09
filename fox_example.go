@@ -3,6 +3,7 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
+	"github.com/StevenZack/fox/fcore/values/fpermission"
 	"github.com/StevenZack/fox/fcore/widget/fbutton"
 	"github.com/StevenZack/fox/fcore/widget/ffilechooser"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
@@ -22,9 +23,13 @@ func Main(a IActivity) {
 	bt:=fbutton.New(a)
 	fframebox.New(a).DeferShow().Size(-2,-2).Append(
 		bt.Text("hold").OnClick(func() {
-			ffilechooser.OpenSystemFileChooser(a,"*/*",true, func(strings []string) {
+			if fcore.CheckSelfPermission(a, fpermission.WRITE_EXTERNAL_STORAGE) {
+			ffilechooser.New(a).DeferShow().TypeSelectFiles(func(strings []string) {
 				fcore.ShowToast(a,strings2.Join(strings,"\n"))
 			})
+			}else{
+				fcore.RequestPermissions(a,[]string{fpermission.WRITE_EXTERNAL_STORAGE},nil)
+			}
 		}))
 }
 

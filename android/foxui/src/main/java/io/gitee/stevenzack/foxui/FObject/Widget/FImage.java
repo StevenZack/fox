@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import fox.Fox;
 import io.gitee.stevenzack.foxui.FObject.FObject;
@@ -48,7 +49,6 @@ public class FImage extends FObject {
                 });
                 break;
             case "Src":
-                Log.d(TAG, "setAttr: Src="+value);
                 Toolkit.file2Drawable(parentController, value, new Toolkit.OnDrawableReadyListener() {
                     @Override
                     public void onDrawableReady(Drawable d) {
@@ -56,7 +56,30 @@ public class FImage extends FObject {
                     }
                 });
                 break;
+            case "ScaleType":
+                v.setScaleType(parseScaleType(value));
+                break;
         }
         return "";
+    }
+    private ImageView.ScaleType parseScaleType(String value) {
+        switch (value) {
+            case "CenterCrop":
+                return ImageView.ScaleType.CENTER_CROP;
+            case "CenterInside":
+                return ImageView.ScaleType.CENTER_INSIDE;
+            case "FitCenter":
+                return ImageView.ScaleType.FIT_CENTER;
+            case "FitStart":
+                return ImageView.ScaleType.FIT_START;
+            case "FitEnd":
+                return ImageView.ScaleType.FIT_END;
+            case "FitXY":
+                return ImageView.ScaleType.FIT_XY;
+            case "Matrix":
+                return ImageView.ScaleType.MATRIX;
+            default:
+                return ImageView.ScaleType.CENTER;
+        }
     }
 }

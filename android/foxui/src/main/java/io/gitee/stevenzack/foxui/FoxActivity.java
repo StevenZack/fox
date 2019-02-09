@@ -34,6 +34,7 @@ import fox.IActivity;
 import io.gitee.stevenzack.foxui.FObject.FObject;
 import io.gitee.stevenzack.foxui.FObject.Service.FClipboard;
 import io.gitee.stevenzack.foxui.FObject.Service.FService;
+import io.gitee.stevenzack.foxui.FObject.Widget.FBottomNav;
 import io.gitee.stevenzack.foxui.FObject.Widget.FBox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
@@ -210,6 +211,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
                 break;
             case "Switch":
                 fObject = new FSwitch(this);
+                break;
+            case "BottomNav":
+                fObject = new FBottomNav(this);
                 break;
         }
         fObject.vid = vid;

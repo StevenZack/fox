@@ -15,7 +15,7 @@
 [x] space
 [x] spinner
 [x] switch
-- bottomnav
+[x] bottomnav
 - toolbar
 - valueAnimator
 - viewpager

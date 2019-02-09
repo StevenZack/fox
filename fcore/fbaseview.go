@@ -496,10 +496,6 @@ func (f *FBaseView) BindTabLayout(t *FBaseView) *FBaseView {
 	f.A.SetAttr(f.Vid,"TabLayout",t.Vid,"")
 	return f
 }
-func (f *FBaseView) CurrentItem(pos int, soomth bool) *FBaseView {
-	f.A.SetAttr(f.Vid,"CurrentItem",SPrintf(pos),SPrintf(soomth))
-	return f
-}
 func (f *FBaseView) OnPageSelected(fn func(int))*FBaseView  {
 	fnId:=NewToken()
 	EventMap.Set(fnId, func(activity IActivity, s string, s2 string, s3 string) string {
@@ -549,10 +545,18 @@ func (f *FBaseView) GetSelectedIndex() int {
 	}
 	return i
 }
+func (f *FBaseView) SelectedIndex(i int) *FBaseView {
+	f.A.SetAttr(f.Vid,"SelectedIndex",SPrintf(i),"")
+	return f
+}
 func (f *FBaseView) Checked(b bool) *FBaseView {
 	f.A.SetAttr(f.Vid,"Checked",SPrintf(b),"")
 	return f
 }
 func (f *FBaseView) GetChecked() bool {
 	return "true"==f.A.GetAttr(f.Vid, "Checked")
+}
+func (f *FBaseView) Menus(mis ...interface{}) *FBaseView {
+	f.A.SetAttr(f.Vid,"Menus",JsonArray(mis),"")
+	return f
 }

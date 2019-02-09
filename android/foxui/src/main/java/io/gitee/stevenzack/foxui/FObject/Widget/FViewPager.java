@@ -108,10 +108,9 @@ public class FViewPager extends FObject  {
                     v.setAdapter(adapter);
                 }
                 break;
-            case "CurrentItem":
+            case "SelectedIndex":
                 int index = Integer.parseInt(value);
-                boolean is = value2.equals("true");
-                v.setCurrentItem(index,is);
+                v.setCurrentItem(index,true);
                 break;
             case "OnPageSelected":
                 onPageSelected = value;

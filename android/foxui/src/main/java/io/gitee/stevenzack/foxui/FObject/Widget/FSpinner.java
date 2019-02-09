@@ -98,6 +98,10 @@ public class FSpinner extends FObject {
             case "Enabled":
                 v.setEnabled(value.equals("true"));
                 break;
+            case "SelectedIndex":
+                int i = Integer.parseInt(value);
+                v.setSelection(i);
+                break;
         }
         return "";
     }

@@ -3,10 +3,12 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
+	"github.com/StevenZack/fox/fcore/widget/fbottomnav"
 	"github.com/StevenZack/fox/fcore/widget/fbox"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
-	"github.com/StevenZack/fox/fcore/widget/fswitch"
+	"github.com/StevenZack/fox/fcore/widget/fmenu"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
+	"github.com/StevenZack/fox/fcore/widget/fviewpager"
 )
 
 type IActivity interface {
@@ -18,11 +20,28 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	sw:=fswitch.New(a)
-	fbox.NewV(a).Size(-2,-2).DeferShow().Append(
-		sw.OnChange(func() {
-			fcore.ShowToast(a,"changed:"+fcore.SPrintf(sw.GetChecked()))
-		}))
+	vp:=fviewpager.New(a)
+	bn:=fbottomnav.New(a)
+	fbox.NewV(a).DeferShow().Size(-2,-2).Append(
+		vp.LayoutWeight(1).Size(-2,-2).OnGetPage(
+			func(pos int) fcore.IBaseView {
+				return ftext.New(a).Text(fcore.SPrintf(pos))
+			},
+			func() int {
+				return 2
+			},
+			).OnPageSelected(func(i int) {
+			bn.SelectedIndex(i)
+		}),
+		bn.Menus(
+			fmenu.NewItem("one").OnClick(func() {
+				vp.SelectedIndex(0)
+			}),
+			fmenu.NewItem("two").OnClick(func() {
+				vp.SelectedIndex(1)
+			}),
+			),
+			)
 }
 
 func secondPage(a fcore.IActivity) {

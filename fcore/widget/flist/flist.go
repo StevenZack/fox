@@ -77,20 +77,6 @@ func (f *FList) NotifyDataSetChanged() *FList {
 	f.A.SetAttr(f.Vid, "NotifyDataSetChanged", "", "")
 	return f
 }
-func (f *FList) OnItemClick(fn func(int)) *FList {
-	fnId := fcore.NewToken()
-	fcore.EventMap.Set(fnId, func(a fcore.IActivity, v, v1, v2 string) string {
-		pos, e := strconv.ParseInt(v, 10, 64)
-		if e != nil {
-			fmt.Println(`List.OnItemClick.parseInt error:`, e)
-			return ""
-		}
-		fn(int(pos))
-		return ""
-	})
-	f.A.SetAttr(f.Vid, "OnItemClick", fnId, "")
-	return f
-}
 
 func (f *FList) OnItemLongClick(fn func(int)) *FList {
 	fnId := fcore.NewToken()

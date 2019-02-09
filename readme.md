@@ -12,7 +12,7 @@
 [x] service
 [x] fab
 [x] snackbar
-- space
+[x] space
 - spinner
 - style
 - switch

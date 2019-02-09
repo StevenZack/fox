@@ -2,6 +2,7 @@ package fcore
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -524,4 +525,27 @@ func (f *FBaseView) Action(s string, onClick func()) *FBaseView {
 	})
 	f.A.SetAttr(f.Vid,"Action",s,fnId)
 	return f
+}
+
+func (f *FBaseView) OnItemClick(fn func(int)) *FBaseView {
+	fnId := NewToken()
+	EventMap.Set(fnId, func(a IActivity, v, v1, v2 string) string {
+		pos, e := strconv.ParseInt(v, 10, 64)
+		if e != nil {
+			fmt.Println(`List.OnItemClick.parseInt error:`, e)
+			return ""
+		}
+		fn(int(pos))
+		return ""
+	})
+	f.A.SetAttr(f.Vid, "OnItemClick", fnId, "")
+	return f
+}
+func (f *FBaseView) GetSelectedIndex() int {
+	s:=f.A.GetAttr(f.Vid,"SelectedIndex")
+	i,e:=a2i(s)
+	if e != nil {
+		return -1
+	}
+	return i
 }

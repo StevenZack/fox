@@ -1,6 +1,7 @@
 package fcore
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -559,4 +560,22 @@ func (f *FBaseView) GetChecked() bool {
 func (f *FBaseView) Menus(mis ...interface{}) *FBaseView {
 	f.A.SetAttr(f.Vid,"Menus",JsonArray(mis),"")
 	return f
+}
+type TouchEvent struct {
+	X, Y   float64
+	Action string
+}
+
+func (v *FBaseView) OnTouch(f func(TouchEvent))*FBaseView {
+	fnId := NewToken()
+	EventMap.Set(fnId, func(activity IActivity, s string, s2 string, s3 string) string {
+		te := TouchEvent{}
+		e:=json.Unmarshal([]byte(s), &te)
+		if e==nil {
+			f(te)
+		}
+		return ""
+	})
+	v.A.SetAttr(v.Vid,"OnTouch", fnId,"")
+	return v
 }

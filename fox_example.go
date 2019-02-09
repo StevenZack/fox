@@ -3,9 +3,7 @@ package fox
 import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
-	"github.com/StevenZack/fox/fcore/widget/fbox"
 	"github.com/StevenZack/fox/fcore/widget/fbutton"
-	"github.com/StevenZack/fox/fcore/widget/fcheck"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
 )
@@ -19,13 +17,13 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	c:=fcheck.New(a)
-	fbox.NewV(a).DeferShow().Size(-2,-2).Append(
-		c.Text("text").OnChange(func() {
-			fcore.ShowToast(a,fcore.SPrintf(c.GetChecked()))
-		}),
-		fbutton.New(a).Text("id").OnClick(func() {
-			fcore.ShowToast(a,fcore.GetUniqueID(a))
+	bt:=fbutton.New(a)
+	fframebox.New(a).DeferShow().Size(-2,-2).Append(
+		bt.Text("hold").OnTouch(func(event fcore.TouchEvent) {
+			if event.Action=="Move" {
+				bt.X(event.X)
+				bt.Y(event.Y)
+			}
 		}))
 }
 

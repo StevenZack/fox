@@ -4,12 +4,15 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.util.HashMap;
@@ -21,6 +24,7 @@ import io.gitee.stevenzack.foxui.FoxActivity;
 import io.gitee.stevenzack.foxui.Toolkit;
 
 import static io.gitee.stevenzack.foxui.Toolkit.dp2pixel;
+import static io.gitee.stevenzack.foxui.Toolkit.pixel2dp;
 
 public abstract class FObject {
     public String vid ,vtype ;
@@ -108,6 +112,36 @@ public abstract class FObject {
                     @Override
                     public void onClick(View v) {
                         Fox.triggerFunction(parentController, value, "", "", "");
+                    }
+                });
+                break;
+            case "OnTouch":
+                view.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        try {
+                            String action = "";
+                            switch (MotionEventCompat.getActionMasked(event)) {
+                                case MotionEvent.ACTION_MOVE:
+                                    action = "Move";
+                                    break;
+                                case MotionEvent.ACTION_DOWN:
+                                    action = "Down";
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    action = "Up";
+                                    break;
+                            }
+                            JSONObject object = new JSONObject();
+                            object.put("Action", action);
+                            object.put("X", event.getX());
+                            object.put("Y", event.getY());
+                            Fox.triggerFunction(parentController,value, object.toString(),"","");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                        return true;
                     }
                 });
                 break;
@@ -330,7 +364,7 @@ public abstract class FObject {
     }
     void setX(String value) {
         try {
-            float f = dp2pixel(parentController, Float.parseFloat(value));
+            float f =  Float.parseFloat(value);
             view.setX(f);
         } catch (Exception e) {
             e.printStackTrace();
@@ -338,7 +372,7 @@ public abstract class FObject {
     }
     void setY(String value) {
         try {
-            float f = dp2pixel(parentController, Float.parseFloat(value));
+            float f =  Float.parseFloat(value);
             view.setY(f);
         } catch (Exception e) {
             e.printStackTrace();

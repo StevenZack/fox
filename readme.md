@@ -23,9 +23,9 @@
 [x] colors
 [x] imei
 [x] check
-- event
-- scroll
-- menu
+[x] menu
+[x] scroll
+[x] event
 - motionEvent
 
 - fileChooser

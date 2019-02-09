@@ -1,10 +1,14 @@
 package io.gitee.stevenzack.foxui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +33,7 @@ import fox.Fox;
 import fox.IActivity;
 import io.gitee.stevenzack.foxui.FObject.FObject;
 import io.gitee.stevenzack.foxui.FObject.Service.FClipboard;
+import io.gitee.stevenzack.foxui.FObject.Service.FService;
 import io.gitee.stevenzack.foxui.FObject.Widget.FBox;
 import io.gitee.stevenzack.foxui.FObject.Widget.FButton;
 import io.gitee.stevenzack.foxui.FObject.Widget.FConstraintLayout;
@@ -55,12 +60,15 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     public String onPermissionResults = null;
     public static final int PERMISSION_REQUEST_CODE=12351;
 
+    public boolean notFinishFlag;
     protected void mainFoxUI(DrawerLayout rootCtn) {//only called by MainActivity (the entry port of Go Code
         this.rootCtn=rootCtn;
+        registerUIBro();
         Fox.main(this);
     }
     protected void startFoxUI(DrawerLayout rootCtn) {// called by those second activity
         this.rootCtn=rootCtn;
+        registerUIBro();
         try {
             String intentJson = Toolkit.handleIntent(this, getIntent());
             activityId=getIntent().getStringExtra("FActivityId");
@@ -70,7 +78,20 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
             e.printStackTrace();
         }
     }
-
+    private void registerUIBro(){
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getStringExtra("action").equals("quit")){
+                    if (notFinishFlag) {
+                        notFinishFlag = false;
+                    }else {
+                        finish();
+                    }
+                }
+            }
+        },new IntentFilter("uibro"));
+    }
     @Override
     public String getActivityId() {
         return activityId;
@@ -80,6 +101,8 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     public String getAttr(String vid, String attr) {
         if (vid.equals("Activity")) {
             return getActivityAttr(attr);
+        } else if (vid.equals("Service")) {
+            return FService.getAttrStaticly(attr);
         }
         FObject fObject = viewmap.get(vid);
         if (fObject != null) {
@@ -171,6 +194,9 @@ public class FoxActivity extends AppCompatActivity implements IActivity {
     public String setAttr(String vid, String attr, String v1, String v2) {
         if (vid.equals("Activity")) {
             return setActivityAttr(attr,v1,v2);
+        } else if (vid.equals("Service")) {
+            FService.setAttr(this,attr, v1);
+            return "";
         }
         FObject fObject = viewmap.get(vid);
         if (fObject != null) {

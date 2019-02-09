@@ -7,7 +7,7 @@
 
 [x] radioGroup
 
-- tablayout
+[x] tablayout
 
 - service
 - snackbar
@@ -32,3 +32,4 @@
 - fileChooser
 
 - getFromViewHolder
+- drawerlayout

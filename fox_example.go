@@ -4,10 +4,10 @@ import (
 	"github.com/StevenZack/fox/fcore"
 	"github.com/StevenZack/fox/fcore/values/fgravity"
 	"github.com/StevenZack/fox/fcore/widget/fbox"
+	"github.com/StevenZack/fox/fcore/widget/fbutton"
 	"github.com/StevenZack/fox/fcore/widget/fframebox"
-	"github.com/StevenZack/fox/fcore/widget/ftablayout"
+	"github.com/StevenZack/fox/fcore/widget/fservice"
 	"github.com/StevenZack/fox/fcore/widget/ftext"
-	"github.com/StevenZack/fox/fcore/widget/fviewpager"
 )
 
 type IActivity interface {
@@ -19,19 +19,28 @@ func TriggerFunction(a IActivity, fnId, s, s1, s2 string) string {
 }
 
 func Main(a IActivity) {
-	tl := ftablayout.NewLayout(a)
-	vp := fviewpager.New(a).BindTabLayout(&tl.FBaseView)
-	fbox.NewV(a).DeferShow().Size(-2, -2).Append(
-		tl.Tabs(
-			fcore.NewTab("one"),
-			fcore.NewTab("two"),
-			fcore.NewTab("three"),
-		),
-		vp.Size(-2, -2).OnGetPage(func(pos int) fcore.IBaseView {
-			return fframebox.New(a).Size(-2, -2).Append(
-				ftext.New(a).Text(fcore.SPrintf(pos)).LayoutGravity(fgravity.Center))
-		}, func() int {
-			return 3
+	bt1,bt2,bt3:=fbutton.New(a),fbutton.New(a),fbutton.New(a)
+	s:=fservice.New(a).OnCreate(func() {
+		fcore.ShowToast(a,"service oncreate")
+	})
+	s.OnQuit(func() {
+		fcore.ShowToast(a,"service quit")
+		s.FinishAllActivity()
+	}).QuitButton("quit").Title("title").SubTitle("sub")
+	fbox.NewV(a).Size(-2,-2).DeferShow().Append(
+		bt1.Size(-2,-1).Text("start").OnClick(func() {
+			s.Show()
 		}),
-	)
+		bt2.Size(-2,-1).Text("stop").OnClick(func() {
+			s.Stop()
+		}),
+		bt3.Size(-2,-1).Text("kill").OnClick(func() {
+			s.KillAll()
+		}),
+		fbutton.New(a).Text("new activity").Size(-2,-1).OnClick(func() {
+			fcore.StartActivity(a, func(activity fcore.IActivity) {
+				fframebox.New(a).Size(-2,-2).DeferShow().Append(
+					ftext.New(a).Text("second").LayoutGravity(fgravity.Center))
+			},nil)
+		}))
 }
